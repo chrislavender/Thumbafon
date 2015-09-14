@@ -14,9 +14,7 @@ class ButtonsView: UIView {
 
     weak var delegate: ButtonsViewDelegate?
     
-    private let numButtons: Int = 16
     private let minButtonSize: CGSize = CGSizeMake(128.0, 145.0)
-    private let maxButtonSize: CGSize = CGSizeMake(120.0, 145.0)
     private let buttColorNames = ["red", "pink", "purple", "blue", "aqua", "green", "seafoam", "yellow"]
 
     private var touchDict = [NSValue : SlipperyButton]()
@@ -26,7 +24,6 @@ class ButtonsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        createButtons(frame)
         self.backgroundColor = UIColor.blackColor()
     }
 
@@ -36,6 +33,9 @@ class ButtonsView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        if slickButtons.count == 0 {
+            createButtons(frame)
+        }
     }
     
     override func canBecomeFirstResponder() -> Bool {
@@ -47,16 +47,30 @@ class ButtonsView: UIView {
         return true;
     }
     
+    private func calculateNumberOfButtonsForViewSize(size: CGSize) -> Int {
+        
+        if size.width == 0.0 || size.height == 0.0 {
+            return 0
+        }
+        
+        let numButtonsPerRow = Int(size.width / minButtonSize.width)
+        let numButtonRows = Int(size.height / minButtonSize.height)
+        
+        return numButtonRows * numButtonsPerRow
+    }
+    
     private func createButtons(frame: CGRect) {
         // Create slickButton array
         var x : CGFloat = 0.0
         var y : CGFloat = minButtonSize.height
         
+        let numButtons = calculateNumberOfButtonsForViewSize(frame.size)
+        
         for buttonNum in 0...numButtons {
             
             let buttonRect = CGRectMake(x, y, minButtonSize.width, minButtonSize.height);
             
-            let newButton = SlipperyButton.init(frame: buttonRect)
+            let newButton = SlipperyButton(frame: buttonRect)
             newButton.tag = buttonNum
             let nIndex = "\(buttonNum)"
             newButton.setTitle(nIndex, forState: UIControlState.Normal)
@@ -102,7 +116,7 @@ class ButtonsView: UIView {
                 button.highlighted = true;
                 let buttonIndex : Int = button.tag
                 self.delegate?.didActivateButtonAtIndex(buttonIndex)
-                let key = NSValue.init(nonretainedObject: touch)
+                let key = NSValue(nonretainedObject: touch)
                 touchDict[key] = button
                 break;
             }
@@ -111,7 +125,7 @@ class ButtonsView: UIView {
     
     override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
         let touch = touches.first as! UITouch
-        let key = NSValue.init(nonretainedObject: touch)
+        let key = NSValue(nonretainedObject: touch)
         
         if let movedButton = touchDict[key] as SlipperyButton! {
             let touchPoint = touch.locationInView(self)
@@ -140,7 +154,7 @@ class ButtonsView: UIView {
                     //TODO: turn note on
                     let buttonIndex : Int = movedButton.tag
                     self.delegate?.didActivateButtonAtIndex(buttonIndex)
-                    let key = NSValue.init(nonretainedObject: touch)
+                    let key = NSValue(nonretainedObject: touch)
                     touchDict[key] = button
                     break;
                 }
@@ -150,7 +164,7 @@ class ButtonsView: UIView {
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         let touch = touches.first as! UITouch
-        let key = NSValue.init(nonretainedObject: touch)
+        let key = NSValue(nonretainedObject: touch)
         if let endedButton = touchDict[key] as SlipperyButton! {
             endedButton.highlighted = false
             let buttonIndex : Int = endedButton.tag

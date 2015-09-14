@@ -18,7 +18,7 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
         aqPlayer.volume = 100
         aqPlayer.soundType = SoundType.EPiano
         
-        let buttonView = ButtonsView.init(frame:CGRectZero)
+        let buttonView = ButtonsView(frame:CGRectZero)
         buttonView.delegate = self;
         buttonView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
