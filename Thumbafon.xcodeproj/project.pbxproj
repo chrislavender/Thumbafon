@@ -1,0 +1,578 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 47;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		24E590CD7D61BE60A285E258 /* ButtonBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E5955E61C1395E8BED888E /* ButtonBoardVC.swift */; };
+		24E592E6E859C0697935F1CF /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E59B601DBFB294D6B0D4B0 /* ButtonsView.swift */; };
+		24E59D47181E4142F92DDF7C /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E59B601DBFB294D6B0D4B0 /* ButtonsView.swift */; };
+		8710B2F71BA4B91C00D08888 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8710B2F61BA4B91C00D08888 /* AppDelegate.swift */; };
+		8710B2FA1BA4B91C00D08888 /* Thumbafon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8710B2F81BA4B91C00D08888 /* Thumbafon.xcdatamodeld */; };
+		8710B2FF1BA4B91C00D08888 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8710B2FD1BA4B91C00D08888 /* Main.storyboard */; };
+		8710B3011BA4B91C00D08888 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8710B3001BA4B91C00D08888 /* Images.xcassets */; };
+		8710B3041BA4B91C00D08888 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8710B3021BA4B91C00D08888 /* LaunchScreen.xib */; };
+		8710B3101BA4B91C00D08888 /* ThumbafonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8710B30F1BA4B91C00D08888 /* ThumbafonTests.swift */; };
+		8710B3331BA4BAB000D08888 /* AQPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B31D1BA4BAB000D08888 /* AQPlayer.m */; };
+		8710B3341BA4BAB000D08888 /* AQPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B31D1BA4BAB000D08888 /* AQPlayer.m */; };
+		8710B3351BA4BAB000D08888 /* AQSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B31F1BA4BAB000D08888 /* AQSound.m */; };
+		8710B3361BA4BAB000D08888 /* AQSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B31F1BA4BAB000D08888 /* AQSound.m */; };
+		8710B3371BA4BAB000D08888 /* AQSynth.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B3211BA4BAB000D08888 /* AQSynth.m */; };
+		8710B3381BA4BAB000D08888 /* AQSynth.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B3211BA4BAB000D08888 /* AQSynth.m */; };
+		8710B33B1BA4BAB000D08888 /* PulseOrgan.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B3261BA4BAB000D08888 /* PulseOrgan.m */; };
+		8710B33C1BA4BAB000D08888 /* PulseOrgan.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B3261BA4BAB000D08888 /* PulseOrgan.m */; };
+		8710B33D1BA4BAB000D08888 /* SawBrass.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B3281BA4BAB000D08888 /* SawBrass.m */; };
+		8710B33E1BA4BAB000D08888 /* SawBrass.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B3281BA4BAB000D08888 /* SawBrass.m */; };
+		8710B33F1BA4BAB000D08888 /* SinePiano.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B32A1BA4BAB000D08888 /* SinePiano.m */; };
+		8710B3401BA4BAB000D08888 /* SinePiano.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B32A1BA4BAB000D08888 /* SinePiano.m */; };
+		8710B3411BA4BAB000D08888 /* SquareStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B32C1BA4BAB000D08888 /* SquareStrings.m */; };
+		8710B3421BA4BAB000D08888 /* SquareStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B32C1BA4BAB000D08888 /* SquareStrings.m */; };
+		8710B3431BA4BAB000D08888 /* TriangleFlute.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B32E1BA4BAB000D08888 /* TriangleFlute.m */; };
+		8710B3441BA4BAB000D08888 /* TriangleFlute.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B32E1BA4BAB000D08888 /* TriangleFlute.m */; };
+		8710B3451BA4BAB000D08888 /* Voice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B3301BA4BAB000D08888 /* Voice.m */; };
+		8710B3461BA4BAB000D08888 /* Voice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B3301BA4BAB000D08888 /* Voice.m */; };
+		87D66EF41BA510D7000FE3E8 /* SlipperyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D66EF31BA510D7000FE3E8 /* SlipperyButton.swift */; };
+		87D66EF51BA510D7000FE3E8 /* SlipperyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D66EF31BA510D7000FE3E8 /* SlipperyButton.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8710B30A1BA4B91C00D08888 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8710B2E91BA4B91C00D08888 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8710B2F01BA4B91C00D08888;
+			remoteInfo = Thumbafon;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		24E5955E61C1395E8BED888E /* ButtonBoardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonBoardVC.swift; sourceTree = "<group>"; };
+		24E59B601DBFB294D6B0D4B0 /* ButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
+		8710B2F11BA4B91C00D08888 /* Thumbafon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Thumbafon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8710B2F51BA4B91C00D08888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8710B2F61BA4B91C00D08888 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8710B2F91BA4B91C00D08888 /* Thumbafon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Thumbafon.xcdatamodel; sourceTree = "<group>"; };
+		8710B2FE1BA4B91C00D08888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8710B3001BA4B91C00D08888 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8710B3031BA4B91C00D08888 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		8710B3091BA4B91C00D08888 /* ThumbafonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThumbafonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8710B30E1BA4B91C00D08888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8710B30F1BA4B91C00D08888 /* ThumbafonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbafonTests.swift; sourceTree = "<group>"; };
+		8710B31C1BA4BAB000D08888 /* AQPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQPlayer.h; sourceTree = "<group>"; };
+		8710B31D1BA4BAB000D08888 /* AQPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQPlayer.m; sourceTree = "<group>"; };
+		8710B31E1BA4BAB000D08888 /* AQSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQSound.h; sourceTree = "<group>"; };
+		8710B31F1BA4BAB000D08888 /* AQSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQSound.m; sourceTree = "<group>"; };
+		8710B3201BA4BAB000D08888 /* AQSynth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQSynth.h; sourceTree = "<group>"; };
+		8710B3211BA4BAB000D08888 /* AQSynth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AQSynth.m; sourceTree = "<group>"; };
+		8710B3251BA4BAB000D08888 /* PulseOrgan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PulseOrgan.h; sourceTree = "<group>"; };
+		8710B3261BA4BAB000D08888 /* PulseOrgan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PulseOrgan.m; sourceTree = "<group>"; };
+		8710B3271BA4BAB000D08888 /* SawBrass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SawBrass.h; sourceTree = "<group>"; };
+		8710B3281BA4BAB000D08888 /* SawBrass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SawBrass.m; sourceTree = "<group>"; };
+		8710B3291BA4BAB000D08888 /* SinePiano.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinePiano.h; sourceTree = "<group>"; };
+		8710B32A1BA4BAB000D08888 /* SinePiano.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinePiano.m; sourceTree = "<group>"; };
+		8710B32B1BA4BAB000D08888 /* SquareStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareStrings.h; sourceTree = "<group>"; };
+		8710B32C1BA4BAB000D08888 /* SquareStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareStrings.m; sourceTree = "<group>"; };
+		8710B32D1BA4BAB000D08888 /* TriangleFlute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleFlute.h; sourceTree = "<group>"; };
+		8710B32E1BA4BAB000D08888 /* TriangleFlute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriangleFlute.m; sourceTree = "<group>"; };
+		8710B32F1BA4BAB000D08888 /* Voice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Voice.h; sourceTree = "<group>"; };
+		8710B3301BA4BAB000D08888 /* Voice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Voice.m; sourceTree = "<group>"; };
+		8710B3471BA4BEA300D08888 /* Thumbafon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thumbafon-Bridging-Header.h"; sourceTree = "<group>"; };
+		87D66EF31BA510D7000FE3E8 /* SlipperyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlipperyButton.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8710B2EE1BA4B91C00D08888 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8710B3061BA4B91C00D08888 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		24E596533B01130362A72C7A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				24E59B601DBFB294D6B0D4B0 /* ButtonsView.swift */,
+				87D66EF31BA510D7000FE3E8 /* SlipperyButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		24E599E00D090D57A0A99576 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				24E5955E61C1395E8BED888E /* ButtonBoardVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		8710B2E81BA4B91C00D08888 = {
+			isa = PBXGroup;
+			children = (
+				8710B2F31BA4B91C00D08888 /* Thumbafon */,
+				8710B30C1BA4B91C00D08888 /* ThumbafonTests */,
+				8710B2F21BA4B91C00D08888 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8710B2F21BA4B91C00D08888 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8710B2F11BA4B91C00D08888 /* Thumbafon.app */,
+				8710B3091BA4B91C00D08888 /* ThumbafonTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8710B2F31BA4B91C00D08888 /* Thumbafon */ = {
+			isa = PBXGroup;
+			children = (
+				8710B2F61BA4B91C00D08888 /* AppDelegate.swift */,
+				8710B3001BA4B91C00D08888 /* Images.xcassets */,
+				8710B3021BA4B91C00D08888 /* LaunchScreen.xib */,
+				8710B2FD1BA4B91C00D08888 /* Main.storyboard */,
+				8710B2F41BA4B91C00D08888 /* Supporting Files */,
+				8710B2F81BA4B91C00D08888 /* Thumbafon.xcdatamodeld */,
+				24E599E00D090D57A0A99576 /* ViewControllers */,
+				24E596533B01130362A72C7A /* Views */,
+				8710B31A1BA4BAB000D08888 /* WaveTableSynth */,
+			);
+			path = Thumbafon;
+			sourceTree = "<group>";
+		};
+		8710B2F41BA4B91C00D08888 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8710B2F51BA4B91C00D08888 /* Info.plist */,
+				8710B3471BA4BEA300D08888 /* Thumbafon-Bridging-Header.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8710B30C1BA4B91C00D08888 /* ThumbafonTests */ = {
+			isa = PBXGroup;
+			children = (
+				8710B30F1BA4B91C00D08888 /* ThumbafonTests.swift */,
+				8710B30D1BA4B91C00D08888 /* Supporting Files */,
+			);
+			path = ThumbafonTests;
+			sourceTree = "<group>";
+		};
+		8710B30D1BA4B91C00D08888 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8710B30E1BA4B91C00D08888 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8710B31A1BA4BAB000D08888 /* WaveTableSynth */ = {
+			isa = PBXGroup;
+			children = (
+				8710B31C1BA4BAB000D08888 /* AQPlayer.h */,
+				8710B31D1BA4BAB000D08888 /* AQPlayer.m */,
+				8710B31E1BA4BAB000D08888 /* AQSound.h */,
+				8710B31F1BA4BAB000D08888 /* AQSound.m */,
+				8710B3201BA4BAB000D08888 /* AQSynth.h */,
+				8710B3211BA4BAB000D08888 /* AQSynth.m */,
+				8710B3231BA4BAB000D08888 /* Voices */,
+			);
+			path = WaveTableSynth;
+			sourceTree = "<group>";
+		};
+		8710B3231BA4BAB000D08888 /* Voices */ = {
+			isa = PBXGroup;
+			children = (
+				8710B3241BA4BAB000D08888 /* The Sounds */,
+				8710B32F1BA4BAB000D08888 /* Voice.h */,
+				8710B3301BA4BAB000D08888 /* Voice.m */,
+			);
+			path = Voices;
+			sourceTree = "<group>";
+		};
+		8710B3241BA4BAB000D08888 /* The Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				8710B3251BA4BAB000D08888 /* PulseOrgan.h */,
+				8710B3261BA4BAB000D08888 /* PulseOrgan.m */,
+				8710B3271BA4BAB000D08888 /* SawBrass.h */,
+				8710B3281BA4BAB000D08888 /* SawBrass.m */,
+				8710B3291BA4BAB000D08888 /* SinePiano.h */,
+				8710B32A1BA4BAB000D08888 /* SinePiano.m */,
+				8710B32B1BA4BAB000D08888 /* SquareStrings.h */,
+				8710B32C1BA4BAB000D08888 /* SquareStrings.m */,
+				8710B32D1BA4BAB000D08888 /* TriangleFlute.h */,
+				8710B32E1BA4BAB000D08888 /* TriangleFlute.m */,
+			);
+			path = "The Sounds";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8710B2F01BA4B91C00D08888 /* Thumbafon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8710B3131BA4B91C00D08888 /* Build configuration list for PBXNativeTarget "Thumbafon" */;
+			buildPhases = (
+				8710B2ED1BA4B91C00D08888 /* Sources */,
+				8710B2EE1BA4B91C00D08888 /* Frameworks */,
+				8710B2EF1BA4B91C00D08888 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Thumbafon;
+			productName = Thumbafon;
+			productReference = 8710B2F11BA4B91C00D08888 /* Thumbafon.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8710B3081BA4B91C00D08888 /* ThumbafonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8710B3161BA4B91C00D08888 /* Build configuration list for PBXNativeTarget "ThumbafonTests" */;
+			buildPhases = (
+				8710B3051BA4B91C00D08888 /* Sources */,
+				8710B3061BA4B91C00D08888 /* Frameworks */,
+				8710B3071BA4B91C00D08888 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8710B30B1BA4B91C00D08888 /* PBXTargetDependency */,
+			);
+			name = ThumbafonTests;
+			productName = ThumbafonTests;
+			productReference = 8710B3091BA4B91C00D08888 /* ThumbafonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8710B2E91BA4B91C00D08888 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = "Gnarly Dog Music";
+				TargetAttributes = {
+					8710B2F01BA4B91C00D08888 = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = QD39L6V859;
+					};
+					8710B3081BA4B91C00D08888 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 8710B2F01BA4B91C00D08888;
+					};
+				};
+			};
+			buildConfigurationList = 8710B2EC1BA4B91C00D08888 /* Build configuration list for PBXProject "Thumbafon" */;
+			compatibilityVersion = "Xcode 6.3";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8710B2E81BA4B91C00D08888;
+			productRefGroup = 8710B2F21BA4B91C00D08888 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8710B2F01BA4B91C00D08888 /* Thumbafon */,
+				8710B3081BA4B91C00D08888 /* ThumbafonTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8710B2EF1BA4B91C00D08888 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8710B2FF1BA4B91C00D08888 /* Main.storyboard in Resources */,
+				8710B3041BA4B91C00D08888 /* LaunchScreen.xib in Resources */,
+				8710B3011BA4B91C00D08888 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8710B3071BA4B91C00D08888 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8710B2ED1BA4B91C00D08888 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8710B3371BA4BAB000D08888 /* AQSynth.m in Sources */,
+				87D66EF41BA510D7000FE3E8 /* SlipperyButton.swift in Sources */,
+				8710B3331BA4BAB000D08888 /* AQPlayer.m in Sources */,
+				8710B33F1BA4BAB000D08888 /* SinePiano.m in Sources */,
+				8710B3351BA4BAB000D08888 /* AQSound.m in Sources */,
+				8710B3411BA4BAB000D08888 /* SquareStrings.m in Sources */,
+				8710B2FA1BA4B91C00D08888 /* Thumbafon.xcdatamodeld in Sources */,
+				8710B3431BA4BAB000D08888 /* TriangleFlute.m in Sources */,
+				8710B3451BA4BAB000D08888 /* Voice.m in Sources */,
+				8710B2F71BA4B91C00D08888 /* AppDelegate.swift in Sources */,
+				8710B33B1BA4BAB000D08888 /* PulseOrgan.m in Sources */,
+				8710B33D1BA4BAB000D08888 /* SawBrass.m in Sources */,
+				24E590CD7D61BE60A285E258 /* ButtonBoardVC.swift in Sources */,
+				24E59D47181E4142F92DDF7C /* ButtonsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8710B3051BA4B91C00D08888 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8710B3381BA4BAB000D08888 /* AQSynth.m in Sources */,
+				8710B33C1BA4BAB000D08888 /* PulseOrgan.m in Sources */,
+				8710B3441BA4BAB000D08888 /* TriangleFlute.m in Sources */,
+				8710B3361BA4BAB000D08888 /* AQSound.m in Sources */,
+				8710B3421BA4BAB000D08888 /* SquareStrings.m in Sources */,
+				8710B3461BA4BAB000D08888 /* Voice.m in Sources */,
+				8710B3401BA4BAB000D08888 /* SinePiano.m in Sources */,
+				8710B33E1BA4BAB000D08888 /* SawBrass.m in Sources */,
+				8710B3341BA4BAB000D08888 /* AQPlayer.m in Sources */,
+				8710B3101BA4B91C00D08888 /* ThumbafonTests.swift in Sources */,
+				24E592E6E859C0697935F1CF /* ButtonsView.swift in Sources */,
+				87D66EF51BA510D7000FE3E8 /* SlipperyButton.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8710B30B1BA4B91C00D08888 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8710B2F01BA4B91C00D08888 /* Thumbafon */;
+			targetProxy = 8710B30A1BA4B91C00D08888 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8710B2FD1BA4B91C00D08888 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8710B2FE1BA4B91C00D08888 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8710B3021BA4B91C00D08888 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8710B3031BA4B91C00D08888 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8710B3111BA4B91C00D08888 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8710B3121BA4B91C00D08888 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8710B3141BA4B91C00D08888 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Thumbafon/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Thumbafon/Thumbafon-Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		8710B3151BA4B91C00D08888 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Thumbafon/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Thumbafon/Thumbafon-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		8710B3171BA4B91C00D08888 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ThumbafonTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Thumbafon.app/Thumbafon";
+			};
+			name = Debug;
+		};
+		8710B3181BA4B91C00D08888 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ThumbafonTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Thumbafon.app/Thumbafon";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8710B2EC1BA4B91C00D08888 /* Build configuration list for PBXProject "Thumbafon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8710B3111BA4B91C00D08888 /* Debug */,
+				8710B3121BA4B91C00D08888 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8710B3131BA4B91C00D08888 /* Build configuration list for PBXNativeTarget "Thumbafon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8710B3141BA4B91C00D08888 /* Debug */,
+				8710B3151BA4B91C00D08888 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8710B3161BA4B91C00D08888 /* Build configuration list for PBXNativeTarget "ThumbafonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8710B3171BA4B91C00D08888 /* Debug */,
+				8710B3181BA4B91C00D08888 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8710B2F81BA4B91C00D08888 /* Thumbafon.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8710B2F91BA4B91C00D08888 /* Thumbafon.xcdatamodel */,
+			);
+			currentVersion = 8710B2F91BA4B91C00D08888 /* Thumbafon.xcdatamodel */;
+			path = Thumbafon.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 8710B2E91BA4B91C00D08888 /* Project object */;
+}

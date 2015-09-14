@@ -1,0 +1,14 @@
+# XCode thingys
+/build/
+/xcuserdata/
+/*.xccheckout
+/.idea/
+/*.trace/
+
+xcuserdata
+
+# Mac thingys
+.DS_Store
+
+# jetBrains
+*.idea/

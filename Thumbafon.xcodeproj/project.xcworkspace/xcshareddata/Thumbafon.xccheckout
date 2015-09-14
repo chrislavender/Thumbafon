@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>90CA7985-9E1B-4B93-AB58-7BB02424E0F2</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Thumbafon</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5AF510A5D0692BD00252DF8C8AA595A175B57979</key>
+		<string>github.com:chrislavender/Thumbafon.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Thumbafon/Thumbafon.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5AF510A5D0692BD00252DF8C8AA595A175B57979</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:chrislavender/Thumbafon.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5AF510A5D0692BD00252DF8C8AA595A175B57979</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5AF510A5D0692BD00252DF8C8AA595A175B57979</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ThumbafonOLD</string>
+		</dict>
+	</array>
+</dict>
+</plist>
