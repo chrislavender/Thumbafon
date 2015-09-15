@@ -10,6 +10,10 @@ protocol ButtonsViewDelegate : class {
     func didDeactivateButtonAtIndex(buttonIndex : Int)
 }
 
+typealias ButtonGridDefinition = (
+    numRows: Int, numCols: Int, buttWidth: CGFloat, buttHeight: CGFloat
+)
+
 class ButtonsView: UIView {
 
     weak var delegate: ButtonsViewDelegate?
@@ -33,8 +37,27 @@ class ButtonsView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if slickButtons.count == 0 {
-            createButtons(frame)
+        
+        if let gridDef = calculateNumberOfButtonsForViewSize(frame.size) {
+            if slickButtons.count != gridDef.numRows * gridDef.numCols {
+                manageButtons(frame, grid: gridDef)
+            }
+            
+            var x : CGFloat = 0.0
+            var y : CGFloat = CGRectGetHeight(self.bounds) - gridDef.buttHeight
+            var colCount = 1
+            
+            for button in slickButtons {
+                button.frame = CGRectMake(x, y, gridDef.buttWidth, gridDef.buttHeight);
+                x += gridDef.buttWidth;
+                colCount++
+                
+                if colCount > gridDef.numCols {
+                    x = 0.0
+                    y = CGRectGetMinY(button.frame) - gridDef.buttHeight
+                    colCount = 1 // reset for next row
+                }
+            }
         }
     }
     
@@ -47,56 +70,53 @@ class ButtonsView: UIView {
         return true;
     }
     
-    private func calculateNumberOfButtonsForViewSize(size: CGSize) -> Int {
+    private func calculateNumberOfButtonsForViewSize(size: CGSize) -> (ButtonGridDefinition)? {
         
         if size.width == 0.0 || size.height == 0.0 {
-            return 0
+            return nil
         }
         
-        let numButtonsPerRow = Int(size.width / minButtonSize.width)
-        let numButtonRows = Int(size.height / minButtonSize.height)
+        let numCols = Int(size.width / minButtonSize.width)
+        let numRows = Int(size.height / minButtonSize.height)
+        let width = size.width / CGFloat(numCols)
+        let height = size.height / CGFloat(numRows)
         
-        return numButtonRows * numButtonsPerRow
+        return (numRows, numCols, width, height)
     }
     
-    private func createButtons(frame: CGRect) {
+    private func manageButtons(frame: CGRect, grid: ButtonGridDefinition) {
         // Create slickButton array
-        var x : CGFloat = 0.0
-        var y : CGFloat = minButtonSize.height
+        var numButtons = grid.numRows * grid.numCols
+        var numButtsToManage = numButtons - slickButtons.count
         
-        let numButtons = calculateNumberOfButtonsForViewSize(frame.size)
-        
-        for buttonNum in 0...numButtons {
-            
-            let buttonRect = CGRectMake(x, y, minButtonSize.width, minButtonSize.height);
-            
-            let newButton = SlipperyButton(frame: buttonRect)
-            newButton.tag = buttonNum
-            let nIndex = "\(buttonNum)"
-            newButton.setTitle(nIndex, forState: UIControlState.Normal)
-            
-            self.addSubview(newButton)
-            
-            x += minButtonSize.width;
-            
-            let halfway : Int = (numButtons - 1) / 2
-            
-            if buttonNum == halfway {
-                x = 0
-                y = 0
-            
-            } else if buttonNum > halfway {
-                y = 0
+        if numButtsToManage > 0 {
+            // we need to add some buttons
+            for buttonNum in 0...numButtsToManage {
+                var colorIndex = buttonNum % buttColorNames.count
+                let colorName = buttColorNames[colorIndex]
+                
+                let newButton = SlipperyButton.buttonWithType(UIButtonType.Custom) as! SlipperyButton
+                newButton.tag = slickButtons.count
+                newButton.setTitle("\(slickButtons.count)", forState: UIControlState.Normal)
+                newButton.setBackgroundImage(UIImage(named: "\(colorName)2"), forState:UIControlState.Normal)
+                newButton.setBackgroundImage(UIImage(named: "\(colorName)1"), forState:UIControlState.Highlighted)
+                self.addSubview(newButton)
+                
+                slickButtons.append(newButton)
             }
-            
-            var index = buttonNum % buttColorNames.count
-            let colorName = buttColorNames[index]
-
-            newButton.setBackgroundImage(UIImage(named: "\(colorName)2"), forState:UIControlState.Normal)
-            newButton.setBackgroundImage(UIImage(named: "\(colorName)1"), forState:UIControlState.Highlighted)
-            
-            slickButtons.append(newButton)
+        
+        } else if numButtsToManage < 0 {
+            let targetButtCount = slickButtons.count + numButtsToManage
+            for buttonNum in reverse(0...slickButtons.count) {
+                let button = slickButtons[buttonNum - 1]
+                button.removeFromSuperview()
+                slickButtons.removeAtIndex(buttonNum - 1)
+                if targetButtCount == slickButtons.count {
+                    break;
+                }
+            }
         }
+        // if the number to manage is zero then do nothing.
     }
     
     private func deactivateAllButtons() {
