@@ -18,7 +18,7 @@ class ButtonsView: UIView {
 
     weak var delegate: ButtonsViewDelegate?
     
-    private let minButtonSize: CGSize = CGSizeMake(128.0, 145.0)
+    private let minButtonSize: CGSize = CGSizeMake(120.0, 130.0)
     private let buttColorNames = ["red", "pink", "purple", "blue", "aqua", "green", "seafoam", "yellow"]
 
     private var touchDict = [NSValue : SlipperyButton]()
@@ -91,26 +91,26 @@ class ButtonsView: UIView {
         
         if numButtsToManage > 0 {
             // we need to add some buttons
-            for buttonNum in 0...numButtsToManage {
-                var colorIndex = buttonNum % buttColorNames.count
+            for buttonNum in 1...numButtsToManage {
+                var colorIndex = (buttonNum - 1) % buttColorNames.count
                 let colorName = buttColorNames[colorIndex]
                 
                 let newButton = SlipperyButton.buttonWithType(UIButtonType.Custom) as! SlipperyButton
+                slickButtons.append(newButton)
                 newButton.tag = slickButtons.count
                 newButton.setTitle("\(slickButtons.count)", forState: UIControlState.Normal)
                 newButton.setBackgroundImage(UIImage(named: "\(colorName)2"), forState:UIControlState.Normal)
                 newButton.setBackgroundImage(UIImage(named: "\(colorName)1"), forState:UIControlState.Highlighted)
                 self.addSubview(newButton)
                 
-                slickButtons.append(newButton)
             }
         
         } else if numButtsToManage < 0 {
             let targetButtCount = slickButtons.count + numButtsToManage
-            for buttonNum in reverse(0...slickButtons.count) {
-                let button = slickButtons[buttonNum - 1]
+            for buttonIndex in reverse(0...(slickButtons.count - 1)) {
+                let button = slickButtons[buttonIndex]
                 button.removeFromSuperview()
-                slickButtons.removeAtIndex(buttonNum - 1)
+                slickButtons.removeAtIndex(buttonIndex)
                 if targetButtCount == slickButtons.count {
                     break;
                 }
