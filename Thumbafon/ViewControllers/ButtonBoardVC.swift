@@ -65,7 +65,20 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
         let transposedNoteNum = rawNoteNum + (12 * octaveNumber)
         let noteVoice = NoteVoice(noteNum:transposedNoteNum, voiceIndex: buttToVoiceMap.count)
         aqPlayer.midiNoteOn(noteVoice.noteNum, atVoiceIndex:noteVoice.voiceIndex)
-        buttToVoiceMap[buttonIndex] = NoteVoice(noteNum:noteVoice.noteNum, voiceIndex: noteVoice.voiceIndex)
+        buttToVoiceMap[buttonIndex] = noteVoice
+    }
+    
+    func didChangeButtonFromIndex(oldIndex: Int, toIndex newIndex: Int) {
+        if let oldNoteVoice : NoteVoice = buttToVoiceMap[oldIndex] {
+            buttToVoiceMap.removeValueForKey(oldIndex)
+            let noteIndex = newIndex % baseScale.count
+            let rawNoteNum = Int(baseScale[noteIndex])
+            let octaveNumber = newIndex == 0 ? kBaseOctaveOffset : Int(newIndex / baseScale.count) + kBaseOctaveOffset
+            let transposedNoteNum = rawNoteNum + (12 * octaveNumber)
+            let newNoteVoice = NoteVoice(noteNum:transposedNoteNum, voiceIndex: oldNoteVoice.voiceIndex)
+            aqPlayer.changeMidiNoteToNoteNum(newNoteVoice.noteNum, atVoiceIndex: newNoteVoice.voiceIndex)
+            buttToVoiceMap[newIndex] = newNoteVoice
+        }
     }
     
     func didDeactivateButtonAtIndex(buttonIndex: Int) {

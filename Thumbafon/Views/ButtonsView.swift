@@ -6,8 +6,9 @@
 import UIKit
 
 protocol ButtonsViewDelegate : class {
-    func didActivateButtonAtIndex(buttonIndex : Int)
-    func didDeactivateButtonAtIndex(buttonIndex : Int)
+    func didActivateButtonAtIndex(buttonIndex: Int)
+    func didChangeButtonFromIndex(oldIndex: Int, toIndex newIndex: Int)
+    func didDeactivateButtonAtIndex(buttonIndex: Int)
 }
 
 typealias ButtonGridDefinition = (
@@ -154,8 +155,6 @@ class ButtonsView: UIView {
             // see if we slid outside of the currently selected button
             if movedButton.highlighted && !CGRectContainsPoint(movedButton.frame, touchPoint) {
                 movedButton.highlighted = false;
-                let buttonIndex : Int = movedButton.tag
-                self.delegate?.didDeactivateButtonAtIndex(buttonIndex)
             }
             /*
             // TODO: find out where we are in the button?
@@ -172,9 +171,7 @@ class ButtonsView: UIView {
             for button in slickButtons {
                 if(!movedButton.highlighted && CGRectContainsPoint(button.frame, touchPoint)) {
                     button.highlighted = true;
-                    //TODO: turn note on
-                    let buttonIndex : Int = button.tag
-                    self.delegate?.didActivateButtonAtIndex(buttonIndex)
+                    self.delegate?.didChangeButtonFromIndex(movedButton.tag, toIndex: button.tag)
                     touchDict[key] = button
                     break;
                 }
