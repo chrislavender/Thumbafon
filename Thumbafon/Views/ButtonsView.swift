@@ -18,11 +18,11 @@ class ButtonsView: UIView {
 
     weak var delegate: ButtonsViewDelegate?
     
-    private let minButtonSize: CGSize = CGSizeMake(120.0, 130.0)
+    private let minButtonSize: CGSize = CGSizeMake(160.0, 180.0) // 120 & 130?
     private let buttColorNames = ["red", "pink", "purple", "blue", "aqua", "green", "seafoam", "yellow"]
 
+    private(set) internal var slickButtons = [SlipperyButton]()
     private var touchDict = [NSValue : SlipperyButton]()
-    private var slickButtons = [SlipperyButton]()
     private var buttWidthConstraint = NSLayoutConstraint()
     private var buttHeightConstraint = NSLayoutConstraint()
     
@@ -91,14 +91,15 @@ class ButtonsView: UIView {
         
         if numButtsToManage > 0 {
             // we need to add some buttons
-            for buttonNum in 1...numButtsToManage {
-                var colorIndex = (buttonNum - 1) % buttColorNames.count
+            for buttonNum in 0...numButtsToManage - 1 {
+                var colorIndex = (buttonNum) % buttColorNames.count
                 let colorName = buttColorNames[colorIndex]
                 
                 let newButton = SlipperyButton.buttonWithType(UIButtonType.Custom) as! SlipperyButton
                 slickButtons.append(newButton)
-                newButton.tag = slickButtons.count
-                newButton.setTitle("\(slickButtons.count)", forState: UIControlState.Normal)
+                let noteIndex = slickButtons.count - 1
+                newButton.tag = noteIndex
+                newButton.setTitle("\(noteIndex)", forState: UIControlState.Normal)
                 newButton.setBackgroundImage(UIImage(named: "\(colorName)2"), forState:UIControlState.Normal)
                 newButton.setBackgroundImage(UIImage(named: "\(colorName)1"), forState:UIControlState.Highlighted)
                 self.addSubview(newButton)
@@ -119,7 +120,7 @@ class ButtonsView: UIView {
         // if the number to manage is zero then do nothing.
     }
     
-    private func deactivateAllButtons() {
+    func deactivateAllButtons() {
         for button in slickButtons {
             let buttonIndex : Int = button.titleLabel!.text!.toInt()!
             self.delegate?.didDeactivateButtonAtIndex(buttonIndex)
@@ -172,9 +173,8 @@ class ButtonsView: UIView {
                 if(!movedButton.highlighted && CGRectContainsPoint(button.frame, touchPoint)) {
                     button.highlighted = true;
                     //TODO: turn note on
-                    let buttonIndex : Int = movedButton.tag
+                    let buttonIndex : Int = button.tag
                     self.delegate?.didActivateButtonAtIndex(buttonIndex)
-                    let key = NSValue(nonretainedObject: touch)
                     touchDict[key] = button
                     break;
                 }

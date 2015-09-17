@@ -29,7 +29,7 @@
 - (void)setSoundType:(SoundType)newSoundType {
     if (_soundType != newSoundType) {
         _soundType = newSoundType;
-        changingSound = YES;
+        self.changingSound = YES;
         
         switch (_soundType) {
             case Organ:
@@ -50,7 +50,7 @@
                 break;
         }
         
-        changingSound = NO;
+        self.changingSound = NO;
     }
 }
 

@@ -13,26 +13,25 @@
 
 @interface AQSynth : AQPlayer {
     Voice *voice[kNumberVoices];
-    BOOL changingSound;
-    UInt16 _volume;
 }
 
-@property UInt16 volume;
+@property (nonatomic) UInt16 volume;
+@property (nonatomic) BOOL changingSound;
 
 #pragma mark - monophonic methods
 
-- (void)midiNoteOn:(int)noteNum;
+- (void)midiNoteOn:(NSInteger)noteNum;
 
-- (void)changeMidiNoteToNoteNum:(int)noteNum;
+- (void)changeMidiNoteToNoteNum:(NSInteger)noteNum;
 
-- (void)midiNoteOff:(int)noteNum;
+- (void)midiNoteOff:(NSInteger)noteNum;
 
 #pragma mark - polyphonic methods
 
-- (void)midiNoteOn:(int)noteNum atVoiceIndex:(int)voiceIndex;
+- (void)midiNoteOn:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex;
 
-- (void)changeMidiNoteToNoteNum:(int)noteNum atVoiceIndex:(int)voiceIndex;
+- (void)changeMidiNoteToNoteNum:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex;
 
-- (void)midiNoteOff:(int)noteNum atVoiceIndex:(int)voiceIndex;
+- (void)midiNoteOff:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex;
 
 @end

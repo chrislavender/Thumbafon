@@ -10,15 +10,25 @@ import UIKit
 
 class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
 
-    let aqPlayer = AQSound()
+    struct NoteVoice {
+        var noteNum : Int
+        var voiceIndex : Int
+    }
+    
+    private let aqPlayer = AQSound()
+    private let baseScale = Scale.baseNoteNumbers()
+    private let buttonView = ButtonsView(frame:CGRectZero)
 
+    private var buttToVoiceMap = [Int : NoteVoice]()
+    
+    let kBaseOctaveOffset = 5
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         aqPlayer.start()
         aqPlayer.volume = 100
         aqPlayer.soundType = SoundType.EPiano
         
-        let buttonView = ButtonsView(frame:CGRectZero)
         buttonView.delegate = self;
         buttonView.setTranslatesAutoresizingMaskIntoConstraints(false)
         
@@ -49,11 +59,20 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
     }
     
     func didActivateButtonAtIndex(buttonIndex: Int) {
-        aqPlayer.midiNoteOn(76)
+        let noteIndex = buttonIndex % baseScale.count
+        let rawNoteNum = Int(baseScale[noteIndex])
+        let octaveNumber = buttonIndex == 0 ? kBaseOctaveOffset : Int(buttonIndex / baseScale.count) + kBaseOctaveOffset
+        let transposedNoteNum = rawNoteNum + (12 * octaveNumber)
+        let noteVoice = NoteVoice(noteNum:transposedNoteNum, voiceIndex: buttToVoiceMap.count)
+        aqPlayer.midiNoteOn(noteVoice.noteNum, atVoiceIndex:noteVoice.voiceIndex)
+        buttToVoiceMap[buttonIndex] = NoteVoice(noteNum:noteVoice.noteNum, voiceIndex: noteVoice.voiceIndex)
     }
     
     func didDeactivateButtonAtIndex(buttonIndex: Int) {
-        aqPlayer.midiNoteOff(76)
+        if let noteVoice : NoteVoice = buttToVoiceMap[buttonIndex] {
+            aqPlayer.midiNoteOff(noteVoice.noteNum, atVoiceIndex: noteVoice.voiceIndex)
+            buttToVoiceMap.removeValueForKey(buttonIndex)
+        }
     }
 }
 

@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="Test1.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14F27" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Interval" representedClassName="PRODUCT_MODULE_NAME.Interval" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="steps" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="intervals" toMany="YES" deletionRule="Nullify" destinationEntity="Scale" inverseName="intervals" inverseEntity="Scale" syncable="YES"/>
+    </entity>
+    <entity name="Scale" representedClassName="PRODUCT_MODULE_NAME.Scale" syncable="YES">
+        <relationship name="intervals" toMany="YES" deletionRule="Nullify" destinationEntity="Interval" inverseName="intervals" inverseEntity="Interval" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Scale" positionX="-263" positionY="-36" width="128" height="58"/>
+        <element name="Interval" positionX="-47" positionY="-16" width="128" height="88"/>
+    </elements>
 </model>

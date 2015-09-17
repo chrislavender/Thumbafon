@@ -34,6 +34,12 @@
 		8710B3441BA4BAB000D08888 /* TriangleFlute.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B32E1BA4BAB000D08888 /* TriangleFlute.m */; };
 		8710B3451BA4BAB000D08888 /* Voice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B3301BA4BAB000D08888 /* Voice.m */; };
 		8710B3461BA4BAB000D08888 /* Voice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8710B3301BA4BAB000D08888 /* Voice.m */; };
+		8726111F1BA9222B00682ECF /* Scale+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8726111E1BA9222B00682ECF /* Scale+Create.swift */; };
+		872611201BA9222B00682ECF /* Scale+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8726111E1BA9222B00682ECF /* Scale+Create.swift */; };
+		87BC03361BA8A7040035112A /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC03341BA8A7040035112A /* Interval.swift */; };
+		87BC03371BA8A7040035112A /* Interval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC03341BA8A7040035112A /* Interval.swift */; };
+		87BC03381BA8A7040035112A /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC03351BA8A7040035112A /* Scale.swift */; };
+		87BC03391BA8A7040035112A /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC03351BA8A7040035112A /* Scale.swift */; };
 		87D66EF41BA510D7000FE3E8 /* SlipperyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D66EF31BA510D7000FE3E8 /* SlipperyButton.swift */; };
 		87D66EF51BA510D7000FE3E8 /* SlipperyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D66EF31BA510D7000FE3E8 /* SlipperyButton.swift */; };
 /* End PBXBuildFile section */
@@ -80,6 +86,9 @@
 		8710B32F1BA4BAB000D08888 /* Voice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Voice.h; sourceTree = "<group>"; };
 		8710B3301BA4BAB000D08888 /* Voice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Voice.m; sourceTree = "<group>"; };
 		8710B3471BA4BEA300D08888 /* Thumbafon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thumbafon-Bridging-Header.h"; sourceTree = "<group>"; };
+		8726111E1BA9222B00682ECF /* Scale+Create.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Scale+Create.swift"; sourceTree = "<group>"; };
+		87BC03341BA8A7040035112A /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
+		87BC03351BA8A7040035112A /* Scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
 		87D66EF31BA510D7000FE3E8 /* SlipperyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlipperyButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,10 +148,12 @@
 		8710B2F31BA4B91C00D08888 /* Thumbafon */ = {
 			isa = PBXGroup;
 			children = (
+				8726111C1BA921EE00682ECF /* Extensions */,
 				8710B2F61BA4B91C00D08888 /* AppDelegate.swift */,
 				8710B3001BA4B91C00D08888 /* Images.xcassets */,
 				8710B3021BA4B91C00D08888 /* LaunchScreen.xib */,
 				8710B2FD1BA4B91C00D08888 /* Main.storyboard */,
+				87BC03331BA8A7040035112A /* Models */,
 				8710B2F41BA4B91C00D08888 /* Supporting Files */,
 				8710B2F81BA4B91C00D08888 /* Thumbafon.xcdatamodeld */,
 				24E599E00D090D57A0A99576 /* ViewControllers */,
@@ -217,6 +228,31 @@
 				8710B32E1BA4BAB000D08888 /* TriangleFlute.m */,
 			);
 			path = "The Sounds";
+			sourceTree = "<group>";
+		};
+		8726111C1BA921EE00682ECF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8726111D1BA921EE00682ECF /* ModelAdditions */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8726111D1BA921EE00682ECF /* ModelAdditions */ = {
+			isa = PBXGroup;
+			children = (
+				8726111E1BA9222B00682ECF /* Scale+Create.swift */,
+			);
+			path = ModelAdditions;
+			sourceTree = "<group>";
+		};
+		87BC03331BA8A7040035112A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				87BC03341BA8A7040035112A /* Interval.swift */,
+				87BC03351BA8A7040035112A /* Scale.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,8 +359,10 @@
 				8710B3371BA4BAB000D08888 /* AQSynth.m in Sources */,
 				87D66EF41BA510D7000FE3E8 /* SlipperyButton.swift in Sources */,
 				8710B3331BA4BAB000D08888 /* AQPlayer.m in Sources */,
+				8726111F1BA9222B00682ECF /* Scale+Create.swift in Sources */,
 				8710B33F1BA4BAB000D08888 /* SinePiano.m in Sources */,
 				8710B3351BA4BAB000D08888 /* AQSound.m in Sources */,
+				87BC03361BA8A7040035112A /* Interval.swift in Sources */,
 				8710B3411BA4BAB000D08888 /* SquareStrings.m in Sources */,
 				8710B2FA1BA4B91C00D08888 /* Thumbafon.xcdatamodeld in Sources */,
 				8710B3431BA4BAB000D08888 /* TriangleFlute.m in Sources */,
@@ -333,6 +371,7 @@
 				8710B33B1BA4BAB000D08888 /* PulseOrgan.m in Sources */,
 				8710B33D1BA4BAB000D08888 /* SawBrass.m in Sources */,
 				24E590CD7D61BE60A285E258 /* ButtonBoardVC.swift in Sources */,
+				87BC03381BA8A7040035112A /* Scale.swift in Sources */,
 				24E59D47181E4142F92DDF7C /* ButtonsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,7 +384,10 @@
 				8710B33C1BA4BAB000D08888 /* PulseOrgan.m in Sources */,
 				8710B3441BA4BAB000D08888 /* TriangleFlute.m in Sources */,
 				8710B3361BA4BAB000D08888 /* AQSound.m in Sources */,
+				87BC03391BA8A7040035112A /* Scale.swift in Sources */,
+				87BC03371BA8A7040035112A /* Interval.swift in Sources */,
 				8710B3421BA4BAB000D08888 /* SquareStrings.m in Sources */,
+				872611201BA9222B00682ECF /* Scale+Create.swift in Sources */,
 				8710B3461BA4BAB000D08888 /* Voice.m in Sources */,
 				8710B3401BA4BAB000D08888 /* SinePiano.m in Sources */,
 				8710B33E1BA4BAB000D08888 /* SawBrass.m in Sources */,

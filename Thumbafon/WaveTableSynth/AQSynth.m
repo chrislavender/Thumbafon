@@ -11,7 +11,11 @@
 #import "Voice.h"
 // #import "freeverb.h"
 
+@interface AQSynth ()
+@end
+
 @implementation AQSynth
+@synthesize volume = _volume;
 
 - (UInt16)volume {
     return _volume;
@@ -41,10 +45,11 @@
 }
 
 -(void)fillAudioBuffer:(Float64 *)buffer numFrames:(UInt32)num_frames {
-	
+    
+    if (self.changingSound) return;
+    
     for (UInt8 i = 0; i < kNumberVoices; i++) {
-        
-        if (!changingSound && voice[i] != nil) {
+        if (voice[i] != nil) {
             [voice[i] getSamplesForFreq:buffer numSamples:num_frames];
         }
     }
@@ -53,16 +58,16 @@
 }
 
 #pragma mark - monophonic methods
-- (void)midiNoteOn:(int)noteNum {
+- (void)midiNoteOn:(NSInteger)noteNum {
     voice[0].freq = [Voice noteNumToFreq:(UInt8)noteNum];
     [voice[0] on];
 }
 
-- (void)changeMidiNoteToNoteNum:(int)noteNum {
+- (void)changeMidiNoteToNoteNum:(NSInteger)noteNum {
     voice[0].freq = [Voice noteNumToFreq:(UInt8)noteNum];
 }
 
-- (void)midiNoteOff:(int)noteNum {
+- (void)midiNoteOff:(NSInteger)noteNum {
     for (int i = 0 ; i < kNumberVoices; ++i) {
         voice[i].freq = [Voice noteNumToFreq:(UInt8)noteNum];
         [voice[i] off];
@@ -70,18 +75,18 @@
 }
 
 #pragma mark - polyphonic methods
-- (void)midiNoteOn:(int)noteNum atVoiceIndex:(int)voiceIndex {
+- (void)midiNoteOn:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex {
     voice[voiceIndex].freq = [Voice noteNumToFreq:(UInt8)noteNum];
     [voice[voiceIndex] on];
 
 }
 
-- (void)changeMidiNoteToNoteNum:(int)noteNum atVoiceIndex:(int)voiceIndex {
+- (void)changeMidiNoteToNoteNum:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex {
     voice[voiceIndex].freq = [Voice noteNumToFreq:(UInt8)noteNum];
 
 }
 
-- (void)midiNoteOff:(int)noteNum atVoiceIndex:(int)voiceIndex {
+- (void)midiNoteOff:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex {
     for (int i = 0 ; i < kNumberVoices; ++i) {
         voice[i].freq = [Voice noteNumToFreq:(UInt8)noteNum];
         [voice[i] off];
