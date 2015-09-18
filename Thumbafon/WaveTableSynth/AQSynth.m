@@ -87,10 +87,8 @@
 }
 
 - (void)midiNoteOff:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex {
-    for (int i = 0 ; i < kNumberVoices; ++i) {
-        voice[i].freq = [Voice noteNumToFreq:(UInt8)noteNum];
-        [voice[i] off];
-    }
+    voice[voiceIndex].freq = [Voice noteNumToFreq:(UInt8)noteNum];
+    [voice[voiceIndex] off];
 }
 
 

@@ -123,72 +123,61 @@ class ButtonsView: UIView {
     
     func deactivateAllButtons() {
         for button in slickButtons {
-            let buttonIndex : Int = button.titleLabel!.text!.toInt()!
-            self.delegate?.didDeactivateButtonAtIndex(buttonIndex)
             button.highlighted = false;
+            self.delegate?.didDeactivateButtonAtIndex(button.tag)
         }
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch
-        let touchPoint = touch.locationInView(self)
         
-        for button in slickButtons {
-            if CGRectContainsPoint(button.frame, touchPoint) && !button.highlighted {
+        for item in touches {
+            let touch = item as! UITouch
+            let touchPoint = touch.locationInView(self)
+            let button = self.hitTest(touchPoint, withEvent: UIEvent()) as! SlipperyButton
+            if !button.highlighted {
                 button.highlighted = true;
-                let buttonIndex : Int = button.tag
-                self.delegate?.didActivateButtonAtIndex(buttonIndex)
-                let key = NSValue(nonretainedObject: touch)
-                touchDict[key] = button
-                break;
+                self.delegate?.didActivateButtonAtIndex(button.tag)
+                touchDict[NSValue(nonretainedObject: touch)] = button
             }
         }
     }
     
     override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch
-        let key = NSValue(nonretainedObject: touch)
         
-        if let movedButton = touchDict[key] as SlipperyButton! {
-            let touchPoint = touch.locationInView(self)
-            
-            // see if we slid outside of the currently selected button
-            if movedButton.highlighted && !CGRectContainsPoint(movedButton.frame, touchPoint) {
-                movedButton.highlighted = false;
-            }
-            /*
-            // TODO: find out where we are in the button?
-            //the following tracks where in each button the touches are located (partial implementation)
-            else if (movedButton.highlighted && CGRectContainsPoint(movedButton.frame, touchPoint)) {
-            CGPoint buttonTouch = [touch locationInView:touch.view];
-            double yVal = 1/buttonTouch.y;
-            yVal = yVal > 0.8 ? 0.8 : yVal < 0.4 ? 0.4 : yVal;
-            //NSLog(@"buttonTouch.x = %f, buttonTouch.y = %f", buttonTouch.x, buttonTouch.y);
-            }
-            */
-            
-            // see if we slid into another button
-            for button in slickButtons {
-                if(!movedButton.highlighted && CGRectContainsPoint(button.frame, touchPoint)) {
-                    button.highlighted = true;
-                    self.delegate?.didChangeButtonFromIndex(movedButton.tag, toIndex: button.tag)
-                    touchDict[key] = button
-                    break;
+        for item in touches {
+            let touch = item as! UITouch
+            let key = NSValue(nonretainedObject: touch)
+            if let movedButton = touchDict[key] as SlipperyButton! {
+                
+                let touchPoint = touch.locationInView(self)
+                let activeButton = self.hitTest(touchPoint, withEvent: UIEvent()) as! SlipperyButton
+                
+                // see if we slid outside of the currently selected button
+                if movedButton !== activeButton {
+                    // turn off the old
+                    movedButton.highlighted = false;
+                    // turn on the new
+                    activeButton.highlighted = true;
+                    // update the vc so it can change the pitch
+                    self.delegate?.didChangeButtonFromIndex(movedButton.tag, toIndex: activeButton.tag)
+                    // update the touch dictionary with the new active button
+                    touchDict[key] = activeButton
                 }
             }
         }
     }
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        let touch = touches.first as! UITouch
-        let key = NSValue(nonretainedObject: touch)
-        if let endedButton = touchDict[key] as SlipperyButton! {
-            endedButton.highlighted = false
-            let buttonIndex : Int = endedButton.tag
-            self.delegate?.didDeactivateButtonAtIndex(buttonIndex)
+        
+        for item in touches {
+            let touch = item as! UITouch
+            let key = NSValue(nonretainedObject: touch)
+            if let endedButton = touchDict[key] as SlipperyButton! {
+                endedButton.highlighted = false
+                self.delegate?.didDeactivateButtonAtIndex(endedButton.tag)
+            }
+            touchDict.removeValueForKey(key)
         }
-        touchDict.removeValueForKey(key)
-
     }
     
     override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {

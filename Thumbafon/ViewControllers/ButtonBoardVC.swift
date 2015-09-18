@@ -21,13 +21,13 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
 
     private var buttToVoiceMap = [Int : NoteVoice]()
     
-    let kBaseOctaveOffset = 5
+    let kBaseOctaveOffset = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
         aqPlayer.start()
         aqPlayer.volume = 100
-        aqPlayer.soundType = SoundType.EPiano
+        aqPlayer.soundType = SoundType.Brass
         
         buttonView.delegate = self;
         buttonView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -58,11 +58,15 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func didActivateButtonAtIndex(buttonIndex: Int) {
+    private func noteNumberForButtonIndex(buttonIndex: Int) -> Int {
         let noteIndex = buttonIndex % baseScale.count
         let rawNoteNum = Int(baseScale[noteIndex])
         let octaveNumber = buttonIndex == 0 ? kBaseOctaveOffset : Int(buttonIndex / baseScale.count) + kBaseOctaveOffset
-        let transposedNoteNum = rawNoteNum + (12 * octaveNumber)
+        return rawNoteNum + (12 * octaveNumber)
+    }
+    
+    func didActivateButtonAtIndex(buttonIndex: Int) {
+        let transposedNoteNum = noteNumberForButtonIndex(buttonIndex)
         let noteVoice = NoteVoice(noteNum:transposedNoteNum, voiceIndex: buttToVoiceMap.count)
         aqPlayer.midiNoteOn(noteVoice.noteNum, atVoiceIndex:noteVoice.voiceIndex)
         buttToVoiceMap[buttonIndex] = noteVoice
@@ -71,10 +75,7 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
     func didChangeButtonFromIndex(oldIndex: Int, toIndex newIndex: Int) {
         if let oldNoteVoice : NoteVoice = buttToVoiceMap[oldIndex] {
             buttToVoiceMap.removeValueForKey(oldIndex)
-            let noteIndex = newIndex % baseScale.count
-            let rawNoteNum = Int(baseScale[noteIndex])
-            let octaveNumber = newIndex == 0 ? kBaseOctaveOffset : Int(newIndex / baseScale.count) + kBaseOctaveOffset
-            let transposedNoteNum = rawNoteNum + (12 * octaveNumber)
+            let transposedNoteNum = noteNumberForButtonIndex(newIndex)
             let newNoteVoice = NoteVoice(noteNum:transposedNoteNum, voiceIndex: oldNoteVoice.voiceIndex)
             aqPlayer.changeMidiNoteToNoteNum(newNoteVoice.noteNum, atVoiceIndex: newNoteVoice.voiceIndex)
             buttToVoiceMap[newIndex] = newNoteVoice

@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>90CA7985-9E1B-4B93-AB58-7BB02424E0F2</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>Thumbafon</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>272988DE6E489193DE627BECB4B8CC30173A1C39</key>
 		<string>github.com:chrislavender/Thumbafon.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Thumbafon.xcodeproj/project.xcworkspace</string>
+	<string>Thumbafon.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>272988DE6E489193DE627BECB4B8CC30173A1C39</key>
