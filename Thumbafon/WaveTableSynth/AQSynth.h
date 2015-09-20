@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AQPlayer.h"
 
+
 @interface AQSynth : AQPlayer
 @property (nonatomic) Class voiceClass;
 @property (nonatomic) UInt16 volume;

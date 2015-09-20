@@ -11,9 +11,10 @@
 @implementation Voice
 @synthesize freq = _freq;
 
-- (id)init {
+- (instancetype)initWithDelegate:(id<VoiceDelegate>)delegate {
     self = [super init];
     if (self) {
+        self.delegate = delegate;
     }
     return self;
 }
@@ -53,7 +54,7 @@
 
 - (void)getSamplesForFreq:(Float64 *)buffer numSamples:(UInt32)num_samples {
     for (UInt32 i = 0; i < num_samples; ++i) {
-        buffer[i] += self.maxNoteAmp * [self getWaveTable:_theta] * [self getEnvelope];
+        buffer[i] += [self.delegate maxNoteAmp] * [self getWaveTable:_theta] * [self getEnvelope];
         _theta += _deltaTheta;
     }
 }

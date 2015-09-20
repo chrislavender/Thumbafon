@@ -11,9 +11,8 @@
 
 @implementation SawBrass
 
-- (id)init
-{
-    self = [super init];
+- (instancetype)initWithDelegate:(id<VoiceDelegate>)delegate {
+    self = [super initWithDelegate:delegate];
     if (self) {
         //Create WaveTable
         for (UInt32 i = 0; i < kAudioDataByteSize; i++) {
@@ -22,7 +21,7 @@
             _theta = (Float64)i / kAudioDataByteSize;
             
             for (UInt8 j = 1; j <= 9; j += 1) {
-                _table[i] += sin(j * _theta * 2. * M_PI) * MAX_AMP / j;
+                _table[i] += sin(j * _theta * 2. * M_PI) * [self.delegate maxNoteAmp] / j;
             }
         }
         //Set Envelope Settings

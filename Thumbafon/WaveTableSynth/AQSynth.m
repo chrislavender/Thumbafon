@@ -11,7 +11,7 @@
 #import "Voice.h"
 #import "freeverb.h"
 
-@interface AQSynth ()
+@interface AQSynth ()<VoiceDelegate>
 @property (nonatomic) NSArray *voiceArray;
 @end
 
@@ -53,7 +53,7 @@
     }
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     
     if (self) {
@@ -81,13 +81,13 @@
 
 }
 
+- (Float64)maxNoteAmp {
+    return self.voiceArray.count == 0 ? MAX_AMP : MAX_AMP / self.voiceArray.count;
+}
+
 - (Voice *)addVoiceToVoiceArray {
-    Voice *voice = [[self.voiceClass alloc] init];
+    Voice *voice = [[self.voiceClass alloc] initWithDelegate:self];
     self.voiceArray = [self.voiceArray arrayByAddingObject:voice];
-    
-    for (Voice *v in self.voiceArray) {
-        v.maxNoteAmp = MAX_AMP / self.voiceArray.count;
-    }
     
     return voice;
 }

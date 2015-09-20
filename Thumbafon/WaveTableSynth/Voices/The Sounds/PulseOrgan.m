@@ -11,11 +11,10 @@
 
 @implementation PulseOrgan
 
-- (id)init
-{
-    self = [super init];
+- (instancetype)initWithDelegate:(id<VoiceDelegate>)delegate {
+    self = [super initWithDelegate:delegate];
     if (self) {
-        //Float32 mMaxAmp = MAX_AMP * .75;
+
         //Create WaveTable
         for (UInt32 i = 0; i < kAudioDataByteSize; i++) {
             
@@ -23,9 +22,9 @@
             _theta = (Float64)i / kAudioDataByteSize;
             
             for (UInt8 j = 1; j <= 5; j += 1) {
-                _table[i] += sin(j * _theta * 2. * M_PI) * MAX_AMP;
+                _table[i] += sin(j * _theta * 2. * M_PI) * [self.delegate maxNoteAmp];
             }
-            _table[i] = _table[i] * MAX_AMP/5;
+            _table[i] = _table[i] * [self.delegate maxNoteAmp];
         }
         
         //Set Envelope Settings

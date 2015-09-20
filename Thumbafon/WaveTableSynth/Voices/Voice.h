@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "AQPlayer.h"
 
+@protocol VoiceDelegate <NSObject>
+- (Float64)maxNoteAmp;
+@end
+
 @interface Voice : NSObject {
 	
     Float64 _amplitude;
@@ -25,6 +29,8 @@
 	Float64 _table[kAudioDataByteSize];
 }
 
+- (instancetype)initWithDelegate:(id<VoiceDelegate>)delegate;
+
 - (void)on;
 - (void)off;
 
@@ -32,7 +38,7 @@
 
 @property (nonatomic) Float64 freq;
 @property (nonatomic) BOOL isOn;
-@property (nonatomic) Float64 maxNoteAmp;
+@property (nonatomic, weak) id<VoiceDelegate> delegate;
 
 + (Float64)noteNumToFreq:(UInt8)note_num;
 

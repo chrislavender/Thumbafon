@@ -11,16 +11,15 @@
 
 @implementation SinePiano
 
-- (id)init
-{
-    self = [super init];
+- (instancetype)initWithDelegate:(id<VoiceDelegate>)delegate {
+    self = [super initWithDelegate:delegate];
     if (self) {
         //Create WaveTable
         for (UInt32 i = 0; i < kAudioDataByteSize; i++) {
             
             _table[i] = 0;
             _theta = (Float64)i / kAudioDataByteSize;
-            _table[i] = MAX_AMP * sin(_theta * 2. * M_PI);
+            _table[i] = [self.delegate maxNoteAmp] * sin(_theta * 2. * M_PI);
         }
         
         //Set Envelope Settings
@@ -28,8 +27,6 @@
         _release = kSR * 0.01;
         _sustain = 0.9;
         
-        //self.voiceReg = 12;
-
     }
     return self;
 }
