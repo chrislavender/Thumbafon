@@ -51,10 +51,11 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func midiNoteNumForButtonAtIndex(buttonIndex: Int) -> Int {
+    func midiNoteNumForButtonAtIndex(buttonIndex: Int, totalButtons: Int) -> Int {
         let noteIndex = buttonIndex % baseScale.count
         let rawNoteNum = Int(baseScale[noteIndex])
-        let octaveNumber = buttonIndex == 0 ? kBaseOctaveOffset : Int(buttonIndex / baseScale.count) + kBaseOctaveOffset
+        let octaveOffset = (totalButtons > 12) ? kBaseOctaveOffset : kBaseOctaveOffset + 1
+        let octaveNumber = buttonIndex == 0 ? octaveOffset : Int(buttonIndex / baseScale.count) + octaveOffset
         return rawNoteNum + (12 * octaveNumber)
     }
     

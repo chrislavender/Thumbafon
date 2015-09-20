@@ -25,7 +25,7 @@ typealias ButtonGridDefinition = (
 )
 
 protocol ButtonsViewDelegate : class {
-    func midiNoteNumForButtonAtIndex(buttonIndex: Int) -> Int
+    func midiNoteNumForButtonAtIndex(buttonIndex: Int, totalButtons: Int) -> Int
     func didActivateButtonWithNoteNum(noteNum:Int, touchIndex: Int)
     func didChangeButton(toNoteNum noteNum: Int, touchIndex: Int)
     func didDeactivateButtonWithNoteNum(noteNum: Int, touchIndex: Int)
@@ -159,7 +159,7 @@ class ButtonsView: UIView {
                 let noteIndex = slickButtons.count - 1
                 
                 if let _ = self.delegate {
-                    newButton.tag = self.delegate!.midiNoteNumForButtonAtIndex(noteIndex)
+                    newButton.tag = self.delegate!.midiNoteNumForButtonAtIndex(noteIndex, totalButtons: numButtsToCreate)
                 }
                 
                 newButton.setTitle("\(newButton.tag)", forState: UIControlState.Normal)
