@@ -43,6 +43,8 @@ class ButtonsView: UIView {
     private var buttWidthConstraint = NSLayoutConstraint()
     private var buttHeightConstraint = NSLayoutConstraint()
     
+    private var touchIndexes = [Int]()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.blackColor()
@@ -152,7 +154,20 @@ class ButtonsView: UIView {
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         var touch = touches.first as! UITouch
-        touch.touchIndex = touchDict.count
+        
+        for index in 0...touchIndexes.count {
+            if index > touchIndexes.count - 1 {
+                touch.touchIndex = touchIndexes.count
+                touchIndexes.append(touchIndexes.count)
+                break;
+            }
+            
+            if index != touchIndexes[index] {
+                touch.touchIndex = index
+                touchIndexes.insert(index, atIndex: index)
+                break;
+            }
+        }
         
         let touchPoint = touch.locationInView(self)
         if let button = self.hitTest(touchPoint, withEvent: UIEvent()) as? SlipperyButton {
@@ -198,6 +213,14 @@ class ButtonsView: UIView {
         let key = NSValue(nonretainedObject: touch)
         if let endedButton = touchDict[key] as SlipperyButton! {
             touchDict.removeValueForKey(key)
+            
+            for idx in 0...touchIndexes.count {
+                if touchIndexes[idx] == touch.touchIndex {
+                    touchIndexes.removeAtIndex(idx)
+                    break;
+                }
+            }
+            
             self.delegate?.didDeactivateButtonWithNoteNum(endedButton.tag, touchIndex: touch.touchIndex)
             
             // if the button is not being pointed to by another touch
