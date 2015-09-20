@@ -42,6 +42,10 @@
 		87BC03391BA8A7040035112A /* Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87BC03351BA8A7040035112A /* Scale.swift */; };
 		87D66EF41BA510D7000FE3E8 /* SlipperyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D66EF31BA510D7000FE3E8 /* SlipperyButton.swift */; };
 		87D66EF51BA510D7000FE3E8 /* SlipperyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D66EF31BA510D7000FE3E8 /* SlipperyButton.swift */; };
+		87E9DF021BAE82FE00FF6D4B /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = 87E9DEF81BAE82FE00FF6D4B /* allpass.c */; };
+		87E9DF031BAE82FE00FF6D4B /* comb.c in Sources */ = {isa = PBXBuildFile; fileRef = 87E9DEFA1BAE82FE00FF6D4B /* comb.c */; };
+		87E9DF041BAE82FE00FF6D4B /* freeverb.c in Sources */ = {isa = PBXBuildFile; fileRef = 87E9DEFD1BAE82FE00FF6D4B /* freeverb.c */; };
+		87E9DF051BAE82FE00FF6D4B /* revmodel.c in Sources */ = {isa = PBXBuildFile; fileRef = 87E9DEFF1BAE82FE00FF6D4B /* revmodel.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +94,16 @@
 		87BC03341BA8A7040035112A /* Interval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interval.swift; sourceTree = "<group>"; };
 		87BC03351BA8A7040035112A /* Scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scale.swift; sourceTree = "<group>"; };
 		87D66EF31BA510D7000FE3E8 /* SlipperyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlipperyButton.swift; sourceTree = "<group>"; };
+		87E9DEF81BAE82FE00FF6D4B /* allpass.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = allpass.c; sourceTree = "<group>"; };
+		87E9DEF91BAE82FE00FF6D4B /* allpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allpass.h; sourceTree = "<group>"; };
+		87E9DEFA1BAE82FE00FF6D4B /* comb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = comb.c; sourceTree = "<group>"; };
+		87E9DEFB1BAE82FE00FF6D4B /* comb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = comb.h; sourceTree = "<group>"; };
+		87E9DEFC1BAE82FE00FF6D4B /* denormals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = denormals.h; sourceTree = "<group>"; };
+		87E9DEFD1BAE82FE00FF6D4B /* freeverb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = freeverb.c; sourceTree = "<group>"; };
+		87E9DEFE1BAE82FE00FF6D4B /* freeverb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = freeverb.h; sourceTree = "<group>"; };
+		87E9DEFF1BAE82FE00FF6D4B /* revmodel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = revmodel.c; sourceTree = "<group>"; };
+		87E9DF001BAE82FE00FF6D4B /* revmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = revmodel.h; sourceTree = "<group>"; };
+		87E9DF011BAE82FE00FF6D4B /* tuning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tuning.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +162,7 @@
 		8710B2F31BA4B91C00D08888 /* Thumbafon */ = {
 			isa = PBXGroup;
 			children = (
+				87E9DEF71BAE82FE00FF6D4B /* freeverb */,
 				8726111C1BA921EE00682ECF /* Extensions */,
 				8710B2F61BA4B91C00D08888 /* AppDelegate.swift */,
 				8710B3001BA4B91C00D08888 /* Images.xcassets */,
@@ -255,6 +270,23 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		87E9DEF71BAE82FE00FF6D4B /* freeverb */ = {
+			isa = PBXGroup;
+			children = (
+				87E9DEF81BAE82FE00FF6D4B /* allpass.c */,
+				87E9DEF91BAE82FE00FF6D4B /* allpass.h */,
+				87E9DEFA1BAE82FE00FF6D4B /* comb.c */,
+				87E9DEFB1BAE82FE00FF6D4B /* comb.h */,
+				87E9DEFC1BAE82FE00FF6D4B /* denormals.h */,
+				87E9DEFD1BAE82FE00FF6D4B /* freeverb.c */,
+				87E9DEFE1BAE82FE00FF6D4B /* freeverb.h */,
+				87E9DEFF1BAE82FE00FF6D4B /* revmodel.c */,
+				87E9DF001BAE82FE00FF6D4B /* revmodel.h */,
+				87E9DF011BAE82FE00FF6D4B /* tuning.h */,
+			);
+			path = freeverb;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -356,8 +388,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87E9DF041BAE82FE00FF6D4B /* freeverb.c in Sources */,
 				8710B3371BA4BAB000D08888 /* AQSynth.m in Sources */,
 				87D66EF41BA510D7000FE3E8 /* SlipperyButton.swift in Sources */,
+				87E9DF021BAE82FE00FF6D4B /* allpass.c in Sources */,
 				8710B3331BA4BAB000D08888 /* AQPlayer.m in Sources */,
 				8726111F1BA9222B00682ECF /* Scale+Create.swift in Sources */,
 				8710B33F1BA4BAB000D08888 /* SinePiano.m in Sources */,
@@ -368,10 +402,12 @@
 				8710B3431BA4BAB000D08888 /* TriangleFlute.m in Sources */,
 				8710B3451BA4BAB000D08888 /* Voice.m in Sources */,
 				8710B2F71BA4B91C00D08888 /* AppDelegate.swift in Sources */,
+				87E9DF051BAE82FE00FF6D4B /* revmodel.c in Sources */,
 				8710B33B1BA4BAB000D08888 /* PulseOrgan.m in Sources */,
 				8710B33D1BA4BAB000D08888 /* SawBrass.m in Sources */,
 				24E590CD7D61BE60A285E258 /* ButtonBoardVC.swift in Sources */,
 				87BC03381BA8A7040035112A /* Scale.swift in Sources */,
+				87E9DF031BAE82FE00FF6D4B /* comb.c in Sources */,
 				24E59D47181E4142F92DDF7C /* ButtonsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

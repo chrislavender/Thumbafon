@@ -9,7 +9,7 @@
 
 #import "AQSynth.h"
 #import "Voice.h"
-// #import "freeverb.h"
+#import "freeverb.h"
 
 @interface AQSynth ()
 @property (nonatomic) NSArray *voiceArray;
@@ -53,9 +53,22 @@
     }
 }
 
+- (id)init {
+    self = [super init];
+    
+    if (self) {
+        Reverb_Init();
+        Reverb_SetRoomSize(0,0.5);
+        Reverb_SetDamp(0,0.5);
+        Reverb_SetWet(0,0.5);
+        Reverb_SetDry(0,0.5);
+    }
+    return self;
+}
+
 -(void)dealloc {
 	
-//	Reverb_Release();
+	Reverb_Release();
 }
 
 -(void)fillAudioBuffer:(Float64 *)buffer numFrames:(UInt32)num_frames {
@@ -64,7 +77,7 @@
         [voice getSamplesForFreq:buffer numSamples:num_frames];
     }
 
-//	revmodel_process(buffer,num_samples,1);
+	revmodel_process(buffer,num_frames,1);
 
 }
 
