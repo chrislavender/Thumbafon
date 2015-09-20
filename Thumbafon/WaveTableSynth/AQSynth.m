@@ -12,6 +12,7 @@
 // #import "freeverb.h"
 
 @interface AQSynth ()
+@property (nonatomic) NSArray *voiceArray;
 @end
 
 @implementation AQSynth
@@ -19,6 +20,19 @@
 
 - (UInt16)volume {
     return _volume;
+}
+
+- (NSArray *)voiceArray {
+    if (!_voiceArray) {
+        _voiceArray = @[];
+    }
+    
+    return _voiceArray;
+}
+
+- (void)setVoiceClass:(Class)voiceClass {
+    _voiceClass = voiceClass;
+    self.voiceArray = @[];
 }
 
 - (void)setVolume:(UInt16)volume {
@@ -45,50 +59,56 @@
 }
 
 -(void)fillAudioBuffer:(Float64 *)buffer numFrames:(UInt32)num_frames {
-    
-    if (self.changingSound) return;
-    
-    for (UInt8 i = 0; i < kNumberVoices; i++) {
-        if (voice[i] != nil) {
-            [voice[i] getSamplesForFreq:buffer numSamples:num_frames];
-        }
+//    if (self.changingSound) return;
+    for (Voice *voice in self.voiceArray) {
+        [voice getSamplesForFreq:buffer numSamples:num_frames];
     }
+
 //	revmodel_process(buffer,num_samples,1);
 
 }
 
 #pragma mark - monophonic methods
 - (void)midiNoteOn:(NSInteger)noteNum {
-    voice[0].freq = [Voice noteNumToFreq:(UInt8)noteNum];
-    [voice[0] on];
+    if (self.voiceArray.count == 0) {
+        self.voiceArray = [self.voiceArray arrayByAddingObject:[self.voiceClass new]];
+    }
+    
+    Voice *voice = self.voiceArray[0];
+    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
+    [voice on];
 }
 
 - (void)changeMidiNoteToNoteNum:(NSInteger)noteNum {
-    voice[0].freq = [Voice noteNumToFreq:(UInt8)noteNum];
+    Voice *voice = self.voiceArray[0];
+    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
 }
 
 - (void)midiNoteOff:(NSInteger)noteNum {
-    for (int i = 0 ; i < kNumberVoices; ++i) {
-        voice[i].freq = [Voice noteNumToFreq:(UInt8)noteNum];
-        [voice[i] off];
-    }
+    Voice *voice = self.voiceArray[0];
+    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
+    [voice off];
 }
 
 #pragma mark - polyphonic methods
 - (void)midiNoteOn:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex {
-    voice[voiceIndex].freq = [Voice noteNumToFreq:(UInt8)noteNum];
-    [voice[voiceIndex] on];
-
+    if (voiceIndex >= self.voiceArray.count) {
+        self.voiceArray = [self.voiceArray arrayByAddingObject:[self.voiceClass new]];
+    }
+    Voice *voice = self.voiceArray[voiceIndex];
+    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
+    [voice on];
 }
 
 - (void)changeMidiNoteToNoteNum:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex {
-    voice[voiceIndex].freq = [Voice noteNumToFreq:(UInt8)noteNum];
-
+    Voice *voice = self.voiceArray[voiceIndex];
+    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
 }
 
 - (void)midiNoteOff:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex {
-    voice[voiceIndex].freq = [Voice noteNumToFreq:(UInt8)noteNum];
-    [voice[voiceIndex] off];
+    Voice *voice = self.voiceArray[voiceIndex];
+    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
+    [voice off];
 }
 
 

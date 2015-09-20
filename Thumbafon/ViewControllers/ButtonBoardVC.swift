@@ -10,16 +10,9 @@ import UIKit
 
 class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
 
-    struct NoteVoice {
-        var noteNum : Int
-        var voiceIndex : Int
-    }
-    
     private let aqPlayer = AQSound()
     private let baseScale = Scale.baseNoteNumbers()
     private let buttonView = ButtonsView(frame:CGRectZero)
-
-    private var buttToVoiceMap = [Int : NoteVoice]()
     
     let kBaseOctaveOffset = 4
     
@@ -27,7 +20,7 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
         super.viewDidLoad()
         aqPlayer.start()
         aqPlayer.volume = 100
-        aqPlayer.soundType = SoundType.Brass
+        aqPlayer.soundType = SoundType.EPiano
         
         buttonView.delegate = self;
         buttonView.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -58,35 +51,22 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    private func noteNumberForButtonIndex(buttonIndex: Int) -> Int {
+    func midiNoteNumForButtonAtIndex(buttonIndex: Int) -> Int {
         let noteIndex = buttonIndex % baseScale.count
         let rawNoteNum = Int(baseScale[noteIndex])
         let octaveNumber = buttonIndex == 0 ? kBaseOctaveOffset : Int(buttonIndex / baseScale.count) + kBaseOctaveOffset
         return rawNoteNum + (12 * octaveNumber)
     }
     
-    func didActivateButtonAtIndex(buttonIndex: Int) {
-        let transposedNoteNum = noteNumberForButtonIndex(buttonIndex)
-        let noteVoice = NoteVoice(noteNum:transposedNoteNum, voiceIndex: buttToVoiceMap.count)
-        aqPlayer.midiNoteOn(noteVoice.noteNum, atVoiceIndex:noteVoice.voiceIndex)
-        buttToVoiceMap[buttonIndex] = noteVoice
+    func didActivateButtonWithNoteNum(noteNum: Int, touchIndex: Int) {
+        aqPlayer.midiNoteOn(noteNum, atVoiceIndex:touchIndex)
     }
     
-    func didChangeButtonFromIndex(oldIndex: Int, toIndex newIndex: Int) {
-        if let oldNoteVoice : NoteVoice = buttToVoiceMap[oldIndex] {
-            buttToVoiceMap.removeValueForKey(oldIndex)
-            let transposedNoteNum = noteNumberForButtonIndex(newIndex)
-            let newNoteVoice = NoteVoice(noteNum:transposedNoteNum, voiceIndex: oldNoteVoice.voiceIndex)
-            aqPlayer.changeMidiNoteToNoteNum(newNoteVoice.noteNum, atVoiceIndex: newNoteVoice.voiceIndex)
-            buttToVoiceMap[newIndex] = newNoteVoice
-        }
+    func didChangeButton(toNoteNum noteNum: Int, touchIndex: Int) {
+        aqPlayer.changeMidiNoteToNoteNum(noteNum, atVoiceIndex: touchIndex)
     }
     
-    func didDeactivateButtonAtIndex(buttonIndex: Int) {
-        if let noteVoice : NoteVoice = buttToVoiceMap[buttonIndex] {
-            aqPlayer.midiNoteOff(noteVoice.noteNum, atVoiceIndex: noteVoice.voiceIndex)
-            buttToVoiceMap.removeValueForKey(buttonIndex)
-        }
+    func didDeactivateButtonWithNoteNum(noteNum: Int, touchIndex: Int) {
+        aqPlayer.midiNoteOff(noteNum, atVoiceIndex: touchIndex)
     }
 }
-

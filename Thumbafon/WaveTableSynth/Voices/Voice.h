@@ -31,7 +31,8 @@
 
 - (Float64)getEnvelope;
 
-@property (nonatomic)Float64 freq;
+@property (nonatomic) Float64 freq;
+@property (nonatomic) BOOL isOn;
 
 + (Float64)noteNumToFreq:(UInt8)note_num;
 

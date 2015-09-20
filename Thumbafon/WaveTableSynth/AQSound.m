@@ -19,9 +19,7 @@
     self = [super init];
     
     if (self) {
-        for (UInt8 i = 0; i < kNumberVoices; i++) {
-            voice[i] = [[SinePiano alloc] init];
-        }
+        self.voiceClass = [SinePiano class];
     }
     return self;
 }
@@ -29,28 +27,25 @@
 - (void)setSoundType:(SoundType)newSoundType {
     if (_soundType != newSoundType) {
         _soundType = newSoundType;
-        self.changingSound = YES;
         
         switch (_soundType) {
             case Organ:
-                for (UInt8 i = 0; i < kNumberVoices; i++) voice[i] = [[PulseOrgan alloc] init];
+                self.voiceClass = [PulseOrgan class];
                 break;
             case Brass:
-                for (UInt8 i = 0; i < kNumberVoices; i++) voice[i] = [[SawBrass alloc] init];
+                self.voiceClass = [SawBrass class];
                 break;
             case Strings:
-                for (UInt8 i = 0; i < kNumberVoices; i++) voice[i] = [[SquareStrings alloc] init];
+                self.voiceClass = [SquareStrings class];
                 break;
             case Flute:
-                for (UInt8 i = 0; i < kNumberVoices; i++) voice[i] = [[TriangleFlute alloc] init];
+                self.voiceClass = [TriangleFlute class];
                 break;
                 
             default:
-                for (UInt8 i = 0; i < kNumberVoices; i++) voice[i] = [[SinePiano alloc] init];
+                self.voiceClass = [SinePiano class];
                 break;
         }
-        
-        self.changingSound = NO;
     }
 }
 

@@ -4,16 +4,32 @@
 //
 
 import UIKit
+import ObjectiveC
 
-protocol ButtonsViewDelegate : class {
-    func didActivateButtonAtIndex(buttonIndex: Int)
-    func didChangeButtonFromIndex(oldIndex: Int, toIndex newIndex: Int)
-    func didDeactivateButtonAtIndex(buttonIndex: Int)
+// Declare a global var to produce a unique address as the assoc object handle
+var UITouchIndexPropertyHandle: UInt8 = 0
+
+extension UITouch {
+    var touchIndex:Int {
+        get {
+            return (objc_getAssociatedObject(self, &UITouchIndexPropertyHandle) as? Int ?? nil)!
+        }
+        set {
+            objc_setAssociatedObject(self, &UITouchIndexPropertyHandle, newValue, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        }
+    }
 }
 
 typealias ButtonGridDefinition = (
     numRows: Int, numCols: Int, buttWidth: CGFloat, buttHeight: CGFloat
 )
+
+protocol ButtonsViewDelegate : class {
+    func midiNoteNumForButtonAtIndex(buttonIndex: Int) -> Int
+    func didActivateButtonWithNoteNum(noteNum:Int, touchIndex: Int)
+    func didChangeButton(toNoteNum noteNum: Int, touchIndex: Int)
+    func didDeactivateButtonWithNoteNum(noteNum: Int, touchIndex: Int)
+}
 
 class ButtonsView: UIView {
 
@@ -41,7 +57,7 @@ class ButtonsView: UIView {
         
         if let gridDef = calculateNumberOfButtonsForViewSize(frame.size) {
             if slickButtons.count != gridDef.numRows * gridDef.numCols {
-                manageButtons(frame, grid: gridDef)
+                addButtons(frame, grid: gridDef)
             }
             
             var x : CGFloat = 0.0
@@ -85,30 +101,34 @@ class ButtonsView: UIView {
         return (numRows, numCols, width, height)
     }
     
-    private func manageButtons(frame: CGRect, grid: ButtonGridDefinition) {
+    private func addButtons(frame: CGRect, grid: ButtonGridDefinition) {
         // Create slickButton array
         var numButtons = grid.numRows * grid.numCols
-        var numButtsToManage = numButtons - slickButtons.count
+        var numButtsToCreate = numButtons - slickButtons.count
         
-        if numButtsToManage > 0 {
+        if numButtsToCreate > 0 {
             // we need to add some buttons
-            for buttonNum in 0...numButtsToManage - 1 {
+            for buttonNum in 0...numButtsToCreate - 1 {
                 var colorIndex = (buttonNum) % buttColorNames.count
                 let colorName = buttColorNames[colorIndex]
                 
                 let newButton = SlipperyButton.buttonWithType(UIButtonType.Custom) as! SlipperyButton
                 slickButtons.append(newButton)
                 let noteIndex = slickButtons.count - 1
-                newButton.tag = noteIndex
-                newButton.setTitle("\(noteIndex)", forState: UIControlState.Normal)
+                
+                if let _ = self.delegate {
+                    newButton.tag = self.delegate!.midiNoteNumForButtonAtIndex(noteIndex)
+                }
+                
+                newButton.setTitle("\(newButton.tag)", forState: UIControlState.Normal)
                 newButton.setBackgroundImage(UIImage(named: "\(colorName)2"), forState:UIControlState.Normal)
                 newButton.setBackgroundImage(UIImage(named: "\(colorName)1"), forState:UIControlState.Highlighted)
                 self.addSubview(newButton)
                 
             }
         
-        } else if numButtsToManage < 0 {
-            let targetButtCount = slickButtons.count + numButtsToManage
+        } else if numButtsToCreate < 0 {
+            let targetButtCount = slickButtons.count + numButtsToCreate
             for buttonIndex in reverse(0...(slickButtons.count - 1)) {
                 let button = slickButtons[buttonIndex]
                 button.removeFromSuperview()
@@ -122,46 +142,51 @@ class ButtonsView: UIView {
     }
     
     func deactivateAllButtons() {
-        for button in slickButtons {
-            button.highlighted = false;
-            self.delegate?.didDeactivateButtonAtIndex(button.tag)
+        for key in touchDict.keys {
+            let touch = key.nonretainedObjectValue as! UITouch
+            let button = touchDict[key]
+            button!.highlighted = false;
+            self.delegate?.didDeactivateButtonWithNoteNum(button!.tag, touchIndex: touch.touchIndex)
         }
     }
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        var touch = touches.first as! UITouch
+        touch.touchIndex = touchDict.count
         
-        for item in touches {
-            let touch = item as! UITouch
-            let touchPoint = touch.locationInView(self)
-            let button = self.hitTest(touchPoint, withEvent: UIEvent()) as! SlipperyButton
+        let touchPoint = touch.locationInView(self)
+        if let button = self.hitTest(touchPoint, withEvent: UIEvent()) as? SlipperyButton {
             if !button.highlighted {
                 button.highlighted = true;
-                self.delegate?.didActivateButtonAtIndex(button.tag)
-                touchDict[NSValue(nonretainedObject: touch)] = button
             }
+            self.delegate?.didActivateButtonWithNoteNum(button.tag, touchIndex: touch.touchIndex)
+            touchDict[NSValue(nonretainedObject: touch)] = button
         }
     }
     
     override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
         
-        for item in touches {
-            let touch = item as! UITouch
-            let key = NSValue(nonretainedObject: touch)
-            if let movedButton = touchDict[key] as SlipperyButton! {
-                
-                let touchPoint = touch.locationInView(self)
-                let activeButton = self.hitTest(touchPoint, withEvent: UIEvent()) as! SlipperyButton
-                
+        let touch = touches.first as! UITouch
+        let key = NSValue(nonretainedObject: touch)
+        
+        if let movedButton = touchDict[key] as SlipperyButton! {
+            let touchPoint = touch.locationInView(self)
+            
+            if let activeButton = self.hitTest(touchPoint, withEvent: UIEvent()) as? SlipperyButton {
                 // see if we slid outside of the currently selected button
                 if movedButton !== activeButton {
-                    // turn off the old
-                    movedButton.highlighted = false;
-                    // turn on the new
-                    activeButton.highlighted = true;
-                    // update the vc so it can change the pitch
-                    self.delegate?.didChangeButtonFromIndex(movedButton.tag, toIndex: activeButton.tag)
                     // update the touch dictionary with the new active button
                     touchDict[key] = activeButton
+                    // turn on the new
+                    activeButton.highlighted = true
+                    // update the vc so it can change the pitch
+                    self.delegate?.didChangeButton(toNoteNum: activeButton.tag, touchIndex: touch.touchIndex)
+                    
+                    // if the button is not being pointed to by another touch
+                    if !contains(touchDict.values, movedButton) {
+                        // turn it off
+                        movedButton.highlighted = false;
+                    }
                 }
             }
         }
@@ -169,14 +194,17 @@ class ButtonsView: UIView {
     
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         
-        for item in touches {
-            let touch = item as! UITouch
-            let key = NSValue(nonretainedObject: touch)
-            if let endedButton = touchDict[key] as SlipperyButton! {
-                endedButton.highlighted = false
-                self.delegate?.didDeactivateButtonAtIndex(endedButton.tag)
-            }
+        let touch = touches.first as! UITouch
+        let key = NSValue(nonretainedObject: touch)
+        if let endedButton = touchDict[key] as SlipperyButton! {
             touchDict.removeValueForKey(key)
+            self.delegate?.didDeactivateButtonWithNoteNum(endedButton.tag, touchIndex: touch.touchIndex)
+            
+            // if the button is not being pointed to by another touch
+            if !contains(touchDict.values, endedButton) {
+                // turn it off
+                endedButton.highlighted = false;
+            }
         }
     }
     

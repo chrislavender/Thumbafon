@@ -21,10 +21,12 @@
 
 - (void)on {
     _ampDelta = 1. / _attack;
+//    _isOn = YES;
 }
 
 - (void)off {
     _ampDelta = -1. / _release;
+//    _isOn = NO;
 }
 
 - (Float64)getEnvelope {
@@ -61,5 +63,9 @@
     UInt32 i = (UInt32)(index * kAudioDataByteSize);
     i %= kAudioDataByteSize;
     return _table[i];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"freq: %f, ampDelta: %f, amplitude: %f, isOn: %@", _freq,_ampDelta, _amplitude, _isOn ? @"YES" : @"NO"];
 }
 @end

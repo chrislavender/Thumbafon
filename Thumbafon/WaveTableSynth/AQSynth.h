@@ -9,14 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "AQPlayer.h"
 
-@class Voice;
-
-@interface AQSynth : AQPlayer {
-    Voice *voice[kNumberVoices];
-}
-
+@interface AQSynth : AQPlayer
+@property (nonatomic) Class voiceClass;
 @property (nonatomic) UInt16 volume;
-@property (nonatomic) BOOL changingSound;
 
 #pragma mark - monophonic methods
 
