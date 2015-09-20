@@ -36,7 +36,8 @@ class ButtonsView: UIView {
     
     weak var delegate: ButtonsViewDelegate?
     
-    private let minButtonSize: CGSize = CGSizeMake(160.0, 180.0) // 120 & 130?
+    private let minCompactButtonSize: CGSize = CGSizeMake(120.0, 130.0)
+    private let minRegularButtonSize: CGSize = CGSizeMake(160.0, 180.0)
     private let buttColorNames = ["red", "pink", "purple", "blue", "aqua", "green", "seafoam", "yellow"]
     
     private(set) internal var slickButtons = [SlipperyButton]()
@@ -103,8 +104,39 @@ class ButtonsView: UIView {
             return nil
         }
         
-        let numCols = Int(size.width / minButtonSize.width)
-        let numRows = Int(size.height / minButtonSize.height)
+        var minButtWidth : CGFloat = 0.0
+        var minButtHeight : CGFloat = 0.0
+        
+        if self.delegate! is UIViewController {
+            var currentTraits = (self.delegate! as! UIViewController).traitCollection
+            
+            switch currentTraits.horizontalSizeClass {
+                case .Compact:
+                    minButtWidth = minCompactButtonSize.width
+                    break;
+                case .Regular:
+                    minButtWidth = minRegularButtonSize.width
+                    break;
+                case .Unspecified:
+                    minButtWidth = minCompactButtonSize.width
+                    break;
+            }
+            
+            switch currentTraits.verticalSizeClass {
+                case .Compact:
+                    minButtHeight = minCompactButtonSize.height
+                    break;
+                case .Regular:
+                    minButtHeight = minRegularButtonSize.height
+                    break;
+                case .Unspecified:
+                    minButtHeight = minCompactButtonSize.height
+                    break;
+            }
+        }
+        
+        let numCols = Int(size.width / minButtWidth)
+        let numRows = Int(size.height / minButtHeight)
         let width = size.width / CGFloat(numCols)
         let height = size.height / CGFloat(numRows)
         
