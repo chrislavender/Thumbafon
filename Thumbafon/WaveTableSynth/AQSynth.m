@@ -39,7 +39,7 @@
     if (_volume != volume) {
         _volume = volume;
         
-        for (int i = 0; i < kNumberVoices; ++i) {
+        for (int i = 0; i < self.voiceArray.count; ++i) {
             
             if (_volume > 100) {
                 _volume = 100;
@@ -81,13 +81,28 @@
 
 }
 
-#pragma mark - monophonic methods
-- (void)midiNoteOn:(NSInteger)noteNum {
-    if (self.voiceArray.count == 0) {
-        self.voiceArray = [self.voiceArray arrayByAddingObject:[self.voiceClass new]];
+- (Voice *)addVoiceToVoiceArray {
+    Voice *voice = [[self.voiceClass alloc] init];
+    self.voiceArray = [self.voiceArray arrayByAddingObject:voice];
+    
+    for (Voice *v in self.voiceArray) {
+        v.maxNoteAmp = MAX_AMP / self.voiceArray.count;
     }
     
-    Voice *voice = self.voiceArray[0];
+    return voice;
+}
+
+#pragma mark - monophonic methods
+- (void)midiNoteOn:(NSInteger)noteNum {
+    Voice *voice;
+    
+    if (self.voiceArray.count == 0) {
+        voice = [self addVoiceToVoiceArray];
+
+    } else {
+        voice = self.voiceArray[0];
+    }
+    
     voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
     [voice on];
 }
@@ -105,10 +120,15 @@
 
 #pragma mark - polyphonic methods
 - (void)midiNoteOn:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex {
+    Voice *voice;
+    
     if (voiceIndex >= self.voiceArray.count) {
-        self.voiceArray = [self.voiceArray arrayByAddingObject:[self.voiceClass new]];
+        voice = [self addVoiceToVoiceArray];
+    
+    } else {
+        voice = self.voiceArray[voiceIndex];
     }
-    Voice *voice = self.voiceArray[voiceIndex];
+    
     voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
     [voice on];
 }
@@ -124,7 +144,8 @@
     [voice off];
 }
 
-
-
+- (void)killAll {
+    [self.voiceArray makeObjectsPerformSelector:@selector(off)];
+}
 
 @end

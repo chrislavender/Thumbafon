@@ -14,7 +14,6 @@
 - (id)init {
     self = [super init];
     if (self) {
-        _maxNoteAmp = MAX_AMP / kNumberVoices;
     }
     return self;
 }
@@ -54,7 +53,7 @@
 
 - (void)getSamplesForFreq:(Float64 *)buffer numSamples:(UInt32)num_samples {
     for (UInt32 i = 0; i < num_samples; ++i) {
-        buffer[i] += _maxNoteAmp * [self getWaveTable:_theta] * [self getEnvelope];
+        buffer[i] += self.maxNoteAmp * [self getWaveTable:_theta] * [self getEnvelope];
         _theta += _deltaTheta;
     }
 }

@@ -12,7 +12,6 @@
 @interface Voice : NSObject {
 	
     Float64 _amplitude;
-	Float64 _maxNoteAmp;
 	
 	Float64 _attack;
 	Float64 _sustain;
@@ -33,6 +32,7 @@
 
 @property (nonatomic) Float64 freq;
 @property (nonatomic) BOOL isOn;
+@property (nonatomic) Float64 maxNoteAmp;
 
 + (Float64)noteNumToFreq:(UInt8)note_num;
 

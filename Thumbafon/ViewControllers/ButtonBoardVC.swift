@@ -69,4 +69,8 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
     func didDeactivateButtonWithNoteNum(noteNum: Int, touchIndex: Int) {
         aqPlayer.midiNoteOff(noteNum, atVoiceIndex: touchIndex)
     }
+    
+    func killAllNotes() {
+        aqPlayer.killAll()
+    }
 }

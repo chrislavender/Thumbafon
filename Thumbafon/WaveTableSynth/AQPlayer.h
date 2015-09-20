@@ -11,7 +11,6 @@
 
 
 #define kNumberBuffers 3
-#define kNumberVoices 5
 
 #define kSR 22050.
 #define kAudioDataByteSize 1024 //used for buffer size

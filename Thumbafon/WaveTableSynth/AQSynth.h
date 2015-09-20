@@ -13,6 +13,9 @@
 @property (nonatomic) Class voiceClass;
 @property (nonatomic) UInt16 volume;
 
+
+- (void)killAll;
+
 #pragma mark - monophonic methods
 
 - (void)midiNoteOn:(NSInteger)noteNum;
