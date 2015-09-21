@@ -98,13 +98,10 @@
 
 #pragma mark - monophonic methods
 - (void)midiNoteOn:(NSInteger)noteNum {
-    Voice *voice;
+    Voice *voice = self.voiceArray.firstObject;
     
-    if (self.voiceArray.count == 0) {
+    if (!voice) {
         voice = [self addVoiceToVoiceArray];
-
-    } else {
-        voice = self.voiceArray[0];
     }
     
     voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
@@ -112,12 +109,12 @@
 }
 
 - (void)changeMidiNoteToNoteNum:(NSInteger)noteNum {
-    Voice *voice = self.voiceArray[0];
+    Voice *voice = self.voiceArray.firstObject;
     voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
 }
 
 - (void)midiNoteOff:(NSInteger)noteNum {
-    Voice *voice = self.voiceArray[0];
+    Voice *voice = self.voiceArray.firstObject;
     voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
     [voice off];
 }
