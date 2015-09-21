@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AQPlayer.h"
 
+#define REVERB 0
 
 @interface AQSynth : AQPlayer
 @property (nonatomic) Class voiceClass;

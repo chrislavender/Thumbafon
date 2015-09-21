@@ -9,18 +9,20 @@
 
 #import "AQSynth.h"
 #import "Voice.h"
-#import "freeverb.h"
 
-@interface AQSynth ()<VoiceDelegate>
+#if REVERB
+#import "freeverb.h"
+#endif
+
+@interface AQSynth ()<VoiceDelegate> {
+    Float64 _maxNoteAmp;
+}
+
 @property (nonatomic) NSArray *voiceArray;
 @end
 
 @implementation AQSynth
 @synthesize volume = _volume;
-
-- (UInt16)volume {
-    return _volume;
-}
 
 - (NSArray *)voiceArray {
     if (!_voiceArray) {
@@ -39,17 +41,14 @@
     if (_volume != volume) {
         _volume = volume;
         
-        for (int i = 0; i < self.voiceArray.count; ++i) {
-            
-            if (_volume > 100) {
-                _volume = 100;
-            }
-            
-            Float64 amp = _volume * 0.01;
-            //amp = log10f(amp);
-            NSLog(@"_volume: %d  amp: %f", _volume, amp);
-            [self volumeLevel:amp];
+        if (_volume > 100) {
+            _volume = 100;
         }
+        
+        Float64 amp = _volume * 0.01;
+        //amp = log10f(amp);
+        NSLog(@"_volume: %d  amp: %f", _volume, amp);
+        [self volumeLevel:amp];
     }
 }
 
@@ -57,35 +56,40 @@
     self = [super init];
     
     if (self) {
+#if REVERB
         Reverb_Init();
         Reverb_SetRoomSize(0,0.5);
         Reverb_SetDamp(0,0.5);
         Reverb_SetWet(0,0.5);
         Reverb_SetDry(0,0.5);
+#endif
     }
     return self;
 }
 
+#if REVERB
 -(void)dealloc {
-	
 	Reverb_Release();
 }
+#endif
 
 -(void)fillAudioBuffer:(Float64 *)buffer numFrames:(UInt32)num_frames {
 //    if (self.changingSound) return;
     for (Voice *voice in self.voiceArray) {
         [voice getSamplesForFreq:buffer numSamples:num_frames];
     }
-
+#if REVERB
 	revmodel_process(buffer,num_frames,1);
-
+#endif
 }
 
 - (Float64)maxNoteAmp {
-    return self.voiceArray.count == 0 ? MAX_AMP : MAX_AMP / self.voiceArray.count;
+    return _maxNoteAmp;
 }
 
 - (Voice *)addVoiceToVoiceArray {
+    _maxNoteAmp = MAX_AMP / (self.voiceArray.count + 1);
+    
     Voice *voice = [[self.voiceClass alloc] initWithDelegate:self];
     self.voiceArray = [self.voiceArray arrayByAddingObject:voice];
     
