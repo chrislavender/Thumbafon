@@ -15,7 +15,8 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
     private let buttonView = ButtonsView(frame:CGRectZero)
     
     let kBaseOctaveOffset = 4
-    
+    let kOctaveSweetSpot = 5
+
     override func viewDidLoad() {
         super.viewDidLoad()
         aqPlayer.start()
@@ -51,12 +52,17 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func midiNoteNumForButtonAtIndex(buttonIndex: Int, totalButtons: Int) -> Int {
+    func noteInfoForButtonAtIndex(buttonIndex: Int, totalButtons: Int) -> (NoteInfo) {
         let noteIndex = buttonIndex % baseScale.count
         let rawNoteNum = Int(baseScale[noteIndex])
         let octaveOffset = (totalButtons > 12) ? kBaseOctaveOffset : kBaseOctaveOffset + 1
         let octaveNumber = buttonIndex == 0 ? octaveOffset : Int(buttonIndex / baseScale.count) + octaveOffset
-        return rawNoteNum + (12 * octaveNumber)
+        let degrees = Double(noteIndex) * (180 / M_PI)
+        let hue : CGFloat = CGFloat(degrees) / 360.0
+        let sat : CGFloat = 1.0 / CGFloat(octaveNumber + 1 - octaveOffset) + 0.15
+        let color = UIColor(hue: hue, saturation: sat, brightness: 1.0, alpha: 1.0);
+        let midiNum = rawNoteNum + (12 * octaveNumber)
+        return (midiNum, color)
     }
     
     func didActivateButtonWithNoteNum(noteNum: Int, touchIndex: Int) {
