@@ -24,8 +24,12 @@ typealias ButtonGridDefinition = (
     numRows: Int, numCols: Int, buttWidth: CGFloat, buttHeight: CGFloat
 )
 
+typealias NoteInfo = (
+    midiNum: Int, color: UIColor
+)
+
 protocol ButtonsViewDelegate : class {
-    func midiNoteNumForButtonAtIndex(buttonIndex: Int, totalButtons: Int) -> Int
+    func noteInfoForButtonAtIndex(buttonIndex: Int, totalButtons: Int) -> (NoteInfo)
     func didActivateButtonWithNoteNum(noteNum:Int, touchIndex: Int)
     func didChangeButton(toNoteNum noteNum: Int, touchIndex: Int)
     func didDeactivateButtonWithNoteNum(noteNum: Int, touchIndex: Int)
@@ -156,17 +160,19 @@ class ButtonsView: UIView {
                 let colorIndex = (buttonNum) % buttColorNames.count
                 let colorName = buttColorNames[colorIndex]
                 
-                let newButton = SlipperyButton(type: UIButton.ButtonType.custom) 
+                let newButton = SlipperyButton(frame: CGRect.zero) as SlipperyButton
                 slickButtons.append(newButton)
                 let noteIndex = slickButtons.count - 1
                 
                 if let _ = self.delegate {
-                    newButton.tag = self.delegate!.midiNoteNumForButtonAtIndex(buttonIndex: noteIndex, totalButtons: numButtsToCreate)
+                    let noteInfo = self.delegate!.noteInfoForButtonAtIndex(noteIndex, totalButtons: numButtsToCreate)
+                    newButton.tag = noteInfo.midiNum
+                    newButton.defaultColor = noteInfo.color
                 }
                 
-                newButton.setTitle("\(newButton.tag)", for: UIControl.State.normal)
-                newButton.setBackgroundImage(UIImage(named: "\(colorName)2"), for:UIControl.State.normal)
-                newButton.setBackgroundImage(UIImage(named: "\(colorName)1"), for:UIControl.State.highlighted)
+//                newButton.setTitle("\(newButton.tag)", forState: UIControlState.Normal)
+                newButton.defaultFrameImage = UIImage(named: "\(colorName)2")
+                newButton.selectedFrameImage = UIImage(named: "\(colorName)1")
                 self.addSubview(newButton)
                 
             }
