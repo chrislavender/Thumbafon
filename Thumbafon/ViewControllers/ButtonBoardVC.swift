@@ -12,7 +12,7 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
 
     private let aqPlayer = AQSound()
     private let baseScale = Scale.baseNoteNumbers()
-    private let buttonView = ButtonsView(frame:CGRectZero)
+    private let buttonView = ButtonsView(frame:CGRect.zero)
     
     let kBaseOctaveOffset = 4
     
@@ -23,21 +23,21 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
         aqPlayer.soundType = SoundType.EPiano
         
         buttonView.delegate = self;
-        buttonView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        buttonView.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(buttonView)
         
         let bindings = ["buttonView": buttonView]
-        let hortConstrants = NSLayoutConstraint.constraintsWithVisualFormat(
-            "H:|[buttonView]|",
-            options: NSLayoutFormatOptions.allZeros,
+        let hortConstrants = NSLayoutConstraint.constraints(
+            withVisualFormat: "H:|[buttonView]|",
+            options: [],
             metrics: nil,
             views: bindings
         )
         
-        let vertConstrants = NSLayoutConstraint.constraintsWithVisualFormat(
-            "V:|[buttonView]|",
-            options: NSLayoutFormatOptions.allZeros,
+        let vertConstrants = NSLayoutConstraint.constraints(
+            withVisualFormat: "V:|[buttonView]|",
+            options: [],
             metrics: nil,
             views: bindings
         )
@@ -60,11 +60,11 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
     }
     
     func didActivateButtonWithNoteNum(noteNum: Int, touchIndex: Int) {
-        aqPlayer.midiNoteOn(noteNum, atVoiceIndex:touchIndex)
+        aqPlayer.midiNote(on: noteNum, atVoiceIndex:touchIndex)
     }
     
     func didChangeButton(toNoteNum noteNum: Int, touchIndex: Int) {
-        aqPlayer.changeMidiNoteToNoteNum(noteNum, atVoiceIndex: touchIndex)
+        aqPlayer.changeMidiNote(toNoteNum: noteNum, atVoiceIndex: touchIndex)
     }
     
     func didDeactivateButtonWithNoteNum(noteNum: Int, touchIndex: Int) {
