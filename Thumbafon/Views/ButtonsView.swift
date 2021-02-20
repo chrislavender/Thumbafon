@@ -9,26 +9,16 @@ import ObjectiveC
 // Declare a global var to produce a unique address as the assoc object handle
 var UITouchIndexPropertyHandle: UInt8 = 0
 
-extension UITouch {
-    var touchIndex:Int {
-        get {
-            return objc_getAssociatedObject(self, &UITouchIndexPropertyHandle) as? Int ?? 0
-        }
-        set {
-            objc_setAssociatedObject(self, &UITouchIndexPropertyHandle, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-}
-
 typealias ButtonGridDefinition = (
     numRows: Int, numCols: Int, buttWidth: CGFloat, buttHeight: CGFloat
 )
 
 protocol ButtonsViewDelegate : class {
-    func midiNoteNumForButtonAtIndex(buttonIndex: Int, totalButtons: Int) -> Int
-    func didActivateButtonWithNoteNum(noteNum:Int, touchIndex: Int)
-    func didChangeButton(toNoteNum noteNum: Int, touchIndex: Int)
-    func didDeactivateButtonWithNoteNum(noteNum: Int, touchIndex: Int)
+    func calculateNumberOfButtonsForButtonView(buttonView: ButtonsView) -> (ButtonGridDefinition)?
+    func calculateMidiNoteNumbersFor(buttonView: ButtonsView)
+    func didActivateButtonWithNoteNum(noteNum:Int)
+    func didChangeButton(toNoteNum noteNum: Int)
+    func didDeactivateButtonWithNoteNum(noteNum: Int)
     func killAllNotes()
 }
 
@@ -36,13 +26,12 @@ class ButtonsView: UIView {
     
     weak var delegate: ButtonsViewDelegate?
     
-    private let minCompactButtonSize: CGSize = CGSize(width:120.0, height: 130.0)
-    private let minRegularButtonSize: CGSize = CGSize(width: 160.0, height: 180.0)
-    private let buttColorNames = ["red", "pink", "purple", "blue", "aqua", "green", "seafoam", "yellow"]
+    let minCompactButtonSize: CGSize = CGSize(width:120.0, height: 130.0)
+    let minRegularButtonSize: CGSize = CGSize(width: 160.0, height: 180.0)
+    let buttColorNames = ["red", "pink", "purple", "blue", "aqua", "green", "seafoam", "yellow"]
     
     private(set) internal var slickButtons = [SlipperyButton]()
     private var touchDict = [NSValue : SlipperyButton]()
-    private var touchIndexes = [Int]()
     
     override var canBecomeFirstResponder: Bool { return true }
 
@@ -68,7 +57,8 @@ class ButtonsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if let gridDef = calculateNumberOfButtonsForViewSize(size: frame.size) {
+        if let gridDef = self.delegate?.calculateNumberOfButtonsForButtonView(buttonView: self) {
+            
             if slickButtons.count != gridDef.numRows * gridDef.numCols {
                 addButtons(frame: frame, grid: gridDef)
             }
@@ -89,6 +79,8 @@ class ButtonsView: UIView {
                 }
             }
         }
+        
+        self.delegate?.calculateMidiNoteNumbersFor(buttonView: self)
     }
         
     override func resignFirstResponder() -> Bool {
@@ -158,13 +150,6 @@ class ButtonsView: UIView {
                 
                 let newButton = SlipperyButton(type: UIButton.ButtonType.custom) 
                 slickButtons.append(newButton)
-                let noteIndex = slickButtons.count - 1
-                
-                if let _ = self.delegate {
-                    newButton.tag = self.delegate!.midiNoteNumForButtonAtIndex(buttonIndex: noteIndex, totalButtons: numButtsToCreate)
-                }
-                
-                newButton.setTitle("\(newButton.tag)", for: UIControl.State.normal)
                 newButton.setBackgroundImage(UIImage(named: "\(colorName)2"), for:UIControl.State.normal)
                 newButton.setBackgroundImage(UIImage(named: "\(colorName)1"), for:UIControl.State.highlighted)
                 self.addSubview(newButton)
@@ -172,6 +157,7 @@ class ButtonsView: UIView {
             }
             
         } else if numButtsToCreate < 0 {
+            // subtracking buttons? Not sure this is a real use case.
             let targetButtCount = slickButtons.count + numButtsToCreate
             for buttonIndex in (0...(slickButtons.count - 1)).reversed() {
                 let button = slickButtons[buttonIndex]
@@ -191,7 +177,6 @@ class ButtonsView: UIView {
             button.isHighlighted = false;
         }
         self.delegate?.killAllNotes()
-        touchIndexes.removeAll(keepingCapacity: true)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -202,22 +187,8 @@ class ButtonsView: UIView {
             if !button.isHighlighted {
                 button.isHighlighted = true;
             }
-            
-            for idx in 0...touchIndexes.count {
-                if idx == touchIndexes.count {
-                    touch.touchIndex = idx
-                    touchIndexes.append(idx)
-                    break;
-                }
-                
-                if idx != touchIndexes[idx] {
-                    touch.touchIndex = idx
-                    touchIndexes.insert(idx, at: idx)
-                    break;
-                }
-            }
 
-            self.delegate?.didActivateButtonWithNoteNum(noteNum: button.tag, touchIndex: touch.touchIndex)
+            self.delegate?.didActivateButtonWithNoteNum(noteNum: button.tag)
             touchDict[NSValue(nonretainedObject: touch)] = button
         }
 //            else {
@@ -242,7 +213,7 @@ class ButtonsView: UIView {
                     // turn on the new
                     activeButton.isHighlighted = true
                     // update the vc so it can change the pitch
-                    self.delegate?.didChangeButton(toNoteNum: activeButton.tag, touchIndex: touch.touchIndex)
+                    self.delegate?.didChangeButton(toNoteNum: activeButton.tag)
                     
                     // if the button is not being pointed to by another touch
                     if !touchDict.values.contains(movedButton) {
@@ -288,7 +259,7 @@ class ButtonsView: UIView {
 //                    println("WTF? touchIndex:\(touch.touchIndex) touchIndexes:\(touchIndexes) dict:\(touchDict.count)")
 //                }
             
-            self.delegate?.didDeactivateButtonWithNoteNum(noteNum: endedButton.tag, touchIndex: touch.touchIndex)
+            self.delegate?.didDeactivateButtonWithNoteNum(noteNum: endedButton.tag)
             
             // if the button is not being pointed to by another touch
             if !touchDict.values.contains(endedButton) {

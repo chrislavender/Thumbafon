@@ -18,23 +18,26 @@
     Float64 _maxNoteAmp;
 }
 
-@property (nonatomic) NSArray *voiceArray;
+@property (nonatomic) NSDictionary *voiceDict;
 @end
 
 @implementation AQSynth
 @synthesize volume = _volume;
 
-- (NSArray *)voiceArray {
-    if (!_voiceArray) {
-        _voiceArray = @[];
+- (void)createNewVoiceDictionaryWithMidiNotes:(NSArray *)midiNoteNums {
+    NSMutableDictionary *tempVoiceDict = [NSMutableDictionary dictionaryWithCapacity:midiNoteNums.count];
+    for (NSNumber *noteNum in midiNoteNums) {
+        Voice *voice = [[self.voiceClass alloc] initWithDelegate:self];
+        voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
+        tempVoiceDict[noteNum] = voice;
     }
     
-    return _voiceArray;
+    self.voiceDict = [NSDictionary dictionaryWithDictionary:tempVoiceDict];
 }
 
 - (void)setVoiceClass:(Class)voiceClass {
     _voiceClass = voiceClass;
-    self.voiceArray = @[];
+    self.voiceDict = @{};
 }
 
 - (void)setVolume:(UInt16)volume {
@@ -75,7 +78,7 @@
 
 -(void)fillAudioBuffer:(Float64 *)buffer numFrames:(UInt32)num_frames {
 //    if (self.changingSound) return;
-    for (Voice *voice in self.voiceArray) {
+    for (Voice *voice in self.voiceDict.allValues) {
         [voice getSamplesForFreq:buffer numSamples:num_frames];
     }
 #if REVERB
@@ -87,66 +90,36 @@
     return _maxNoteAmp;
 }
 
-- (Voice *)addVoiceToVoiceArray {
-    _maxNoteAmp = MAX_AMP / (self.voiceArray.count + 1);
+- (void)calculateMaxNoteAmp {
+    UInt16 numPlayingVoices = 1;
     
-    Voice *voice = [[self.voiceClass alloc] initWithDelegate:self];
-    self.voiceArray = [self.voiceArray arrayByAddingObject:voice];
-    
-    return voice;
-}
-
-#pragma mark - monophonic methods
-- (void)midiNoteOn:(NSInteger)noteNum {
-    Voice *voice = self.voiceArray.firstObject;
-    
-    if (!voice) {
-        voice = [self addVoiceToVoiceArray];
+    for (Voice *existingVoice in self.voiceDict.allValues) {
+        if (existingVoice.isOn) {
+            numPlayingVoices += 1;
+        }
     }
+        
+    _maxNoteAmp = MAX_AMP / numPlayingVoices;
     
-    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
-    [voice on];
 }
 
-- (void)changeMidiNoteToNoteNum:(NSInteger)noteNum {
-    Voice *voice = self.voiceArray.firstObject;
-    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
+- (void)midiNoteOn:(NSNumber *)noteNum {
+    [self calculateMaxNoteAmp];
+    [self.voiceDict[noteNum] on];
 }
 
-- (void)midiNoteOff:(NSInteger)noteNum {
-    Voice *voice = self.voiceArray.firstObject;
-    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
-    [voice off];
+- (void)changeMidiNoteToNoteNum:(NSNumber *)noteNum {
+//    Voice *voice = self.voiceArray.firstObject;
 }
 
-#pragma mark - polyphonic methods
-- (void)midiNoteOn:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex {
-    Voice *voice;
-    
-    if (voiceIndex >= self.voiceArray.count) {
-        voice = [self addVoiceToVoiceArray];
-    
-    } else {
-        voice = self.voiceArray[voiceIndex];
-    }
-    
-    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
-    [voice on];
-}
-
-- (void)changeMidiNoteToNoteNum:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex {
-    Voice *voice = self.voiceArray[voiceIndex];
-    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
-}
-
-- (void)midiNoteOff:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex {
-    Voice *voice = self.voiceArray[voiceIndex];
-    voice.freq = [Voice noteNumToFreq:(UInt8)noteNum];
-    [voice off];
+- (void)midiNoteOff:(NSNumber *)noteNum {
+    [self calculateMaxNoteAmp];
+    [self.voiceDict[noteNum] off];
 }
 
 - (void)killAll {
-    [self.voiceArray makeObjectsPerformSelector:@selector(off)];
+    [self.voiceDict.allValues makeObjectsPerformSelector:@selector(off)];
+    [self calculateMaxNoteAmp];
 }
 
 @end

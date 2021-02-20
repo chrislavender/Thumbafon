@@ -15,23 +15,14 @@
 @property (nonatomic) Class voiceClass;
 @property (nonatomic) UInt16 volume;
 
+- (void)createNewVoiceDictionaryWithMidiNotes:(NSArray *)midiNoteNums;
 
 - (void)killAll;
 
-#pragma mark - monophonic methods
+- (void)midiNoteOn:(NSNumber *)noteNum;
 
-- (void)midiNoteOn:(NSInteger)noteNum;
+- (void)changeMidiNoteToNoteNum:(NSNumber *)noteNum;
 
-- (void)changeMidiNoteToNoteNum:(NSInteger)noteNum;
-
-- (void)midiNoteOff:(NSInteger)noteNum;
-
-#pragma mark - polyphonic methods
-
-- (void)midiNoteOn:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex;
-
-- (void)changeMidiNoteToNoteNum:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex;
-
-- (void)midiNoteOff:(NSInteger)noteNum atVoiceIndex:(NSInteger)voiceIndex;
+- (void)midiNoteOff:(NSNumber *)noteNum;
 
 @end

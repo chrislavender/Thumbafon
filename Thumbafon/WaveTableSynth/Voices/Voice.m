@@ -21,12 +21,12 @@
 
 - (void)on {
     _ampDelta = 1. / _attack;
-//    _isOn = YES;
+    _isOn = YES;
 }
 
 - (void)off {
     _ampDelta = -1. / _release;
-//    _isOn = NO;
+    _isOn = NO;
 }
 
 - (Float64)getEnvelope {

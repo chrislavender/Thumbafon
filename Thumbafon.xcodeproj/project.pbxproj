@@ -340,6 +340,7 @@
 					};
 					8710B3081BA4B91C00D08888 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = QD39L6V859;
 						TestTargetID = 8710B2F01BA4B91C00D08888;
 					};
 				};
@@ -586,9 +587,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = QD39L6V859;
 				INFOPLIST_FILE = Thumbafon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(THUMBAFON_BUNDLE_INDENTIFIER)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.christopherlavender.thumbafon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Thumbafon/Thumbafon-Bridging-Header.h";
 			};
@@ -598,11 +600,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QD39L6V859;
 				INFOPLIST_FILE = Thumbafon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "$(THUMBAFON_BUNDLE_INDENTIFIER)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.christopherlavender.thumbafon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Thumbafon/Thumbafon-Bridging-Header.h";
 			};
 			name = Release;
@@ -611,6 +616,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = QD39L6V859;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -631,6 +637,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				DEVELOPMENT_TEAM = QD39L6V859;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
