@@ -57,7 +57,7 @@ class ButtonBoardVC: UIViewController, ButtonsViewDelegate {
         let rawNoteNum = Int(baseScale[noteIndex])
         let octaveOffset = (totalButtons > 12) ? kBaseOctaveOffset : kBaseOctaveOffset + 1
         let octaveNumber = buttonIndex == 0 ? octaveOffset : Int(buttonIndex / baseScale.count) + octaveOffset
-        let degrees = Double(noteIndex) * (180 / M_PI)
+        let degrees = Double(noteIndex) * (180 / Double.pi)
         let hue : CGFloat = CGFloat(degrees) / 360.0
         let sat : CGFloat = 1.0 / CGFloat(octaveNumber + 1 - octaveOffset) + 0.15
         let color = UIColor(hue: hue, saturation: sat, brightness: 1.0, alpha: 1.0);

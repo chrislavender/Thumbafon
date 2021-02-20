@@ -33,7 +33,7 @@ class SlipperyButton: UIView {
     var defaultColor = UIColor() {
         didSet {
             var h:CGFloat = 0.0, s:CGFloat = 0.0
-            let cCopy = defaultColor.getHue(&h, saturation: &s, brightness:nil, alpha:nil)
+            let _ = defaultColor.getHue(&h, saturation: &s, brightness:nil, alpha:nil)
             selectedColor = UIColor(hue: h, saturation: s, brightness: 0.7, alpha: 1.0)
             self.backgroundColor = defaultColor
         }

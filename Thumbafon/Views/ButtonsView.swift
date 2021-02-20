@@ -165,7 +165,7 @@ class ButtonsView: UIView {
                 let noteIndex = slickButtons.count - 1
                 
                 if let _ = self.delegate {
-                    let noteInfo = self.delegate!.noteInfoForButtonAtIndex(noteIndex, totalButtons: numButtsToCreate)
+                    let noteInfo = self.delegate!.noteInfoForButtonAtIndex(buttonIndex: noteIndex, totalButtons: numButtsToCreate)
                     newButton.tag = noteInfo.midiNum
                     newButton.defaultColor = noteInfo.color
                 }
@@ -194,7 +194,7 @@ class ButtonsView: UIView {
     @objc func deactivateAllButtons() {
         for value in touchDict.values {
             let button = value as SlipperyButton
-            button.isHighlighted = false;
+            button.highlighted = false;
         }
         self.delegate?.killAllNotes()
         touchIndexes.removeAll(keepingCapacity: true)
@@ -205,8 +205,8 @@ class ButtonsView: UIView {
         let touch = touches.first!
         let touchPoint = touch.location(in: self)
         if let button = self.hitTest(touchPoint, with: UIEvent()) as? SlipperyButton {
-            if !button.isHighlighted {
-                button.isHighlighted = true;
+            if !button.highlighted {
+                button.highlighted = true;
             }
             
             for idx in 0...touchIndexes.count {
@@ -246,14 +246,14 @@ class ButtonsView: UIView {
                     // update the touch dictionary with the new active button
                     touchDict[key] = activeButton
                     // turn on the new
-                    activeButton.isHighlighted = true
+                    activeButton.highlighted = true
                     // update the vc so it can change the pitch
                     self.delegate?.didChangeButton(toNoteNum: activeButton.tag, touchIndex: touch.touchIndex)
                     
                     // if the button is not being pointed to by another touch
                     if !touchDict.values.contains(movedButton) {
                         // turn it off
-                        movedButton.isHighlighted = false;
+                        movedButton.highlighted = false;
                     }
                 }
             }
@@ -299,7 +299,7 @@ class ButtonsView: UIView {
             // if the button is not being pointed to by another touch
             if !touchDict.values.contains(endedButton) {
                 // turn it off
-                endedButton.isHighlighted = false;
+                endedButton.highlighted = false;
             }
         }
     }
