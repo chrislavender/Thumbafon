@@ -12,28 +12,28 @@ class SlipperyButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.userInteractionEnabled = true;
-        self.multipleTouchEnabled = true;
+        self.isUserInteractionEnabled = true;
+        self.isMultipleTouchEnabled = true;
     }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        self.nextResponder()?.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.next?.touchesBegan(touches, with: event)
     }
     
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-        self.nextResponder()?.touchesMoved(touches, withEvent: event)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.next?.touchesMoved(touches, with: event)
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-        self.nextResponder()?.touchesEnded(touches, withEvent: event)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.next?.touchesEnded(touches, with: event)
     }
     
-    override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
-        self.nextResponder()?.touchesCancelled(touches, withEvent: event)
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent!) {
+        self.next?.touchesCancelled(touches, with: event)
     }
     
 }

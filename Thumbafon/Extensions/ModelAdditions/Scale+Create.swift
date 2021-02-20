@@ -32,11 +32,16 @@ extension Scale {
         
         var match: (Scale)? = nil
         
-        let fetchRequest = NSFetchRequest(entityName: "Scale")
-        fetchRequest.predicate = NSPredicate(format: "name == \(name)")
-        
-        if let fetchResults = context.executeFetchRequest(fetchRequest, error: nil) as? [Scale] {
-            match = fetchResults.first
+        do {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Scale")
+            fetchRequest.predicate = NSPredicate(format: "name == \(name)")
+            
+            if let fetchResults = try context.fetch(fetchRequest) as? [Scale] {
+                match = fetchResults.first
+            }
+            
+        } catch {
+            print(error)
         }
         
         return match
