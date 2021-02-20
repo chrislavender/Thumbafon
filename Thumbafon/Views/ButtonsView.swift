@@ -159,7 +159,6 @@ class ButtonsView: UIView {
             for buttonNum in 0...numButtsToCreate - 1 {
                 let colorIndex = (buttonNum) % buttColorNames.count
                 let colorName = buttColorNames[colorIndex]
-                
                 let newButton = SlipperyButton(frame: CGRect.zero) as SlipperyButton
                 slickButtons.append(newButton)
                 let noteIndex = slickButtons.count - 1
