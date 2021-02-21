@@ -13,8 +13,9 @@ extension Scale {
     // MARK: CoreData
     static func baseNoteNumbers() -> [Int] {
         
-        let tempIntervals = [2, 2, 3, 2, 2]
-    
+//        let tempIntervals = [2, 2, 3, 2, 2]
+        let tempIntervals = [2, 2, 3, 2]
+
         var noteNumbers = [0]
         var prevNote = noteNumbers[0]
 

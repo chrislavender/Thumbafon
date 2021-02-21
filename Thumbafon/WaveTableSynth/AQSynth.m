@@ -88,7 +88,7 @@
 }
 
 - (Voice *)addVoiceToVoiceArray {
-    _maxNoteAmp = MAX_AMP / (self.voiceArray.count + 1);
+    _maxNoteAmp = 0.5;//MAX_AMP / (self.voiceArray.count + 1);
     
     Voice *voice = [[self.voiceClass alloc] initWithDelegate:self];
     self.voiceArray = [self.voiceArray arrayByAddingObject:voice];

@@ -8,14 +8,61 @@
 
 import UIKit
 
-class SlipperyButton: UIButton {
+class SlipperyButton: UIView {
+    
+    var highlighted = false {
+        didSet {
+            self.backgroundColor =  highlighted ? selectedColor : defaultColor
+            
+            if highlighted == true {
+                self.backgroundColor = selectedColor
+
+                if let img = selectedFrameImage {
+                    frameImageView.image = img
+                }
+            } else {
+                self.backgroundColor = defaultColor
+                
+                if let img = defaultFrameImage {
+                    frameImageView.image = img
+                }
+            }
+        }
+    }
+    
+    var defaultColor = UIColor() {
+        didSet {
+            var h:CGFloat = 0.0, s:CGFloat = 0.0
+            let _ = defaultColor.getHue(&h, saturation: &s, brightness:nil, alpha:nil)
+            selectedColor = UIColor(hue: h, saturation: s, brightness: 0.7, alpha: 1.0)
+            self.backgroundColor = defaultColor
+        }
+    }
+    
+    var defaultFrameImage : UIImage? {
+        didSet {
+            self.frameImageView.image = defaultFrameImage
+        }
+    }
+    
+    var selectedFrameImage : UIImage?
+    
+    private var frameImageView = UIImageView()
+    
+    var selectedColor = UIColor()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.isUserInteractionEnabled = true;
-        self.isMultipleTouchEnabled = true;
+
+        self.addSubview(frameImageView)
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        frameImageView.frame = self.bounds
+    }
+    
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
