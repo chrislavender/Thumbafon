@@ -28,7 +28,7 @@ typealias NoteInfo = (
     midiNum: Int, color: UIColor
 )
 
-protocol ButtonsViewDelegate : class {
+protocol ButtonsViewDelegate : AnyObject {
     func noteInfoForButtonAtIndex(buttonIndex: Int, totalButtons: Int) -> (NoteInfo)
     func didActivateButtonWithNoteNum(noteNum:Int, touchIndex: Int)
     func didChangeButton(toNoteNum noteNum: Int, touchIndex: Int)
